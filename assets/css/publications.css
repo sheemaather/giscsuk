@@ -1,0 +1,112 @@
+/* =========================================================
+   publications.css
+   Page-specific styles for publications.html only.
+   Shared site styles (nav, dept-header, footer, etc.) live in
+   department.css — link both files together.
+   ========================================================= */
+
+/* ===== Stats line (powered by the news_stats table + triggers) ===== */
+.pub-stats-line{
+  display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;
+  font-size:.85rem;color:var(--muted,#5f7489);margin-bottom:1.6rem;
+}
+.pub-stats-line strong{color:#0b2a44}
+.pub-stats-line .dot{opacity:.5}
+
+/* ===== Quick links (Dresscode, Academic Calendar, etc.) ===== */
+.pub-quicklinks{
+  display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.2rem;
+}
+.pub-quicklink{
+  display:flex;align-items:center;gap:.8rem;
+  background:#fff;border:1px solid var(--border,#e6edf4);border-radius:1rem;
+  padding:.9rem 1.3rem;text-decoration:none;color:#0b2a44;
+  box-shadow:0 6px 18px rgba(20,50,75,.05);
+  transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;
+  min-width:230px;
+}
+.pub-quicklink:hover{
+  transform:translateY(-3px);box-shadow:0 14px 28px rgba(20,50,75,.10);
+  border-color:var(--blue,#0a58a0);color:#0b2a44;
+}
+.pub-quicklink-icon{
+  width:44px;height:44px;flex:none;border-radius:.8rem;
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;
+}
+.pub-quicklink-icon.dresscode{background:#eaf6ff;color:var(--blue,#0a58a0)}
+.pub-quicklink-icon.calendar{background:#fdeeee;color:#b3282d}
+.pub-quicklink-text strong{display:block;font-size:.92rem;font-weight:800}
+.pub-quicklink-text span{display:block;font-size:.76rem;color:var(--muted,#5f7489);margin-top:1px}
+
+/* ===== Filters ===== */
+.pub-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.pub-filter-btn{
+  border:1px solid var(--border,#e6edf4);background:#fff;color:#3f5e7a;font-weight:700;font-size:.85rem;
+  padding:.5rem 1.1rem;border-radius:999px;cursor:pointer;transition:.15s;
+}
+.pub-filter-btn:hover{border-color:var(--blue,#0a58a0);color:var(--blue,#0a58a0)}
+.pub-filter-btn.active{background:var(--blue,#0a58a0);border-color:var(--blue,#0a58a0);color:#fff}
+
+/* ===== Publication / news / notice cards ===== */
+.pub-card{
+  background:#fff;border:1px solid var(--border,#e6edf4);border-radius:1.2rem;overflow:hidden;
+  height:100%;display:flex;flex-direction:column;position:relative;
+  box-shadow:0 6px 20px rgba(20,50,75,.04);transition:transform .2s ease,box-shadow .2s ease;
+}
+.pub-card:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(20,50,75,.10)}
+
+.pub-new-badge{
+  position:absolute;top:14px;right:14px;z-index:2;
+  display:flex;align-items:center;gap:6px;
+  background:#e34b4b;color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.04em;
+  padding:.28rem .6rem .28rem .5rem;border-radius:999px;
+  box-shadow:0 4px 12px rgba(227,75,75,.4);
+}
+.pub-new-badge.important{background:#b3282d}
+.pub-new-badge .pulse-dot{width:7px;height:7px;border-radius:50%;background:#fff;animation:pubPulse 1.4s infinite}
+@keyframes pubPulse{
+  0%{box-shadow:0 0 0 0 rgba(255,255,255,.7)}
+  70%{box-shadow:0 0 0 6px rgba(255,255,255,0)}
+  100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}
+}
+
+.pub-thumb{aspect-ratio:16/10;background:#eaf1fa;overflow:hidden;cursor:pointer}
+.pub-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+.pub-thumb:hover img{transform:scale(1.06)}
+
+.pub-notice-icon{
+  aspect-ratio:16/10;background:#f3f7fb;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:.4rem;color:var(--blue,#0a58a0);
+}
+.pub-notice-icon i{font-size:2.4rem}
+.pub-notice-icon span{font-size:.75rem;font-weight:700;color:#6b8194}
+
+.pub-body{padding:1.2rem 1.3rem 1.4rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.pub-type-tag{
+  align-self:flex-start;font-size:.68rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
+  padding:.24rem .6rem;border-radius:999px;
+}
+.pub-type-tag.type-news{background:#eaf6ff;color:var(--blue,#0a58a0)}
+.pub-type-tag.type-notice{background:#fbf0da;color:#a97615}
+.pub-type-tag.type-notice.important{background:#fdeeee;color:#b3282d}
+
+.pub-body h5{color:#0b2a44;font-weight:800;font-size:1.02rem;margin:0}
+.pub-body .pub-date{font-size:.78rem;color:#8ba0b2;font-weight:600}
+.pub-body p{color:#4b6478;font-size:.9rem;line-height:1.6;margin:0}
+.pub-body .pub-open{margin-top:auto;font-weight:700;font-size:.85rem;color:var(--blue,#0a58a0);text-decoration:none}
+.pub-body .pub-open:hover{text-decoration:underline}
+
+.pub-empty{text-align:center;padding:4rem 1rem;color:#8ba0b2;background:#f8faff;border-radius:1.2rem}
+
+/* ===== Lightbox for image news items ===== */
+.pub-lightbox{
+  position:fixed;inset:0;background:rgba(10,20,32,.92);z-index:2000;
+  display:none;align-items:center;justify-content:center;padding:40px;
+}
+.pub-lightbox.open{display:flex}
+.pub-lightbox img{max-width:90vw;max-height:85vh;border-radius:10px}
+.pub-lightbox-close{position:absolute;top:24px;right:32px;color:#fff;font-size:2rem;background:none;border:none;cursor:pointer}
+
+@media(max-width:576px){
+  .pub-quicklink{min-width:100%}
+}

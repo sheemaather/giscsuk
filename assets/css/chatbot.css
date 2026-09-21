@@ -1,0 +1,57 @@
+/* =========================================================
+   chatbot.css — floating chat widget, appears on every page
+   ========================================================= */
+
+.gisc-chat-bubble{
+  position:fixed;bottom:24px;right:24px;z-index:3000;
+  width:60px;height:60px;border-radius:50%;
+  background:linear-gradient(135deg,#0a58a0,#064898);
+  color:#fff;border:none;font-size:1.5rem;cursor:pointer;
+  box-shadow:0 10px 28px rgba(10,88,160,.4);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s ease;
+}
+.gisc-chat-bubble:hover{transform:scale(1.07)}
+
+.gisc-chat-window{
+  position:fixed;bottom:96px;right:24px;z-index:3000;
+  width:360px;max-width:calc(100vw - 32px);height:500px;max-height:70vh;
+  background:#fff;border-radius:1.2rem;box-shadow:0 24px 60px rgba(11,30,51,.25);
+  display:none;flex-direction:column;overflow:hidden;border:1px solid #e6edf4;
+}
+.gisc-chat-window.open{display:flex}
+
+.gisc-chat-header{
+  background:linear-gradient(135deg,#0a58a0,#064898);color:#fff;
+  padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;
+}
+.gisc-chat-header strong{display:block;font-size:.95rem}
+.gisc-chat-header span{display:block;font-size:.72rem;opacity:.85}
+.gisc-chat-close{background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;opacity:.85}
+.gisc-chat-close:hover{opacity:1}
+
+.gisc-chat-messages{
+  flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.7rem;background:#f8faff;
+}
+.gisc-msg{max-width:82%;padding:.6rem .9rem;border-radius:1rem;font-size:.87rem;line-height:1.5}
+.gisc-msg.bot{background:#fff;border:1px solid #e6edf4;color:#1a2639;align-self:flex-start;border-bottom-left-radius:.3rem}
+.gisc-msg.user{background:#0a58a0;color:#fff;align-self:flex-end;border-bottom-right-radius:.3rem}
+.gisc-msg.typing{color:#8ba0b2;font-style:italic}
+
+.gisc-chat-input{
+  display:flex;gap:.5rem;padding:.8rem;border-top:1px solid #e6edf4;background:#fff;
+}
+.gisc-chat-input input{
+  flex:1;border:1px solid #e6edf4;border-radius:999px;padding:.6rem 1rem;font-size:.87rem;outline:none;
+}
+.gisc-chat-input input:focus{border-color:#0a58a0}
+.gisc-chat-input button{
+  background:#0a58a0;color:#fff;border:none;width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;
+}
+.gisc-chat-input button:hover{background:#064898}
+
+@media(max-width:480px){
+  .gisc-chat-window{right:12px;bottom:84px;width:calc(100vw - 24px)}
+  .gisc-chat-bubble{right:16px;bottom:16px}
+}

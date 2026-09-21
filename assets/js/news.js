@@ -1,0 +1,1 @@
+fetch("/api/news").then(r=>r.json()).then(d=>document.getElementById("newsGrid").innerHTML=d.map(n=>`<div class="col-md-6"><article class="news-card large"><span>${n.published_on}</span><h3>${n.title}</h3><p>${n.body}</p></article></div>`).join(""));

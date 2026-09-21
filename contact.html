@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact Us | Govt. Islamia Science College Sukkur</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="assets/css/style.css" rel="stylesheet">
+<link href="assets/css/chatbot.css" rel="stylesheet">
+<link href="assets/css/academic-pages.css" rel="stylesheet">
+<style>
+ /** { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#f2f5f9; font-family:'Inter', system-ui, -apple-system, sans-serif; }
+
+  /* ---- shared topbar / nav / footer (same as other pages) ---- */
+  /*.navbar-custom { background:white; box-shadow:0 4px 12px rgba(0,0,0,.03); border-bottom:1px solid #eef2f6; padding:.2rem 0; }
+  .navbar-custom .container { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+  .brand-wrap { display:flex; align-items:center; gap:.5rem; text-decoration:none; color:#0b1e33; }
+  .brand-wrap img { height:42px; width:auto; }
+  .brand-wrap .brand-text { line-height:1.2; }
+  .brand-wrap .brand-text strong { font-size:.9rem; display:block; font-weight:700; letter-spacing:-.01em; }
+  .brand-wrap .brand-text small { font-size:.7rem; color:#3f5e7a; font-weight:500; }
+  .nav-hover { display:flex; flex-wrap:wrap; align-items:center; gap:.3rem 1rem; list-style:none; margin:0; padding:.4rem 0; }
+  .nav-hover > li { position:relative; padding:.4rem 0; font-weight:600; font-size:.95rem; color:#1a2639; cursor:default; transition:color .15s; letter-spacing:-.01em; }
+  .nav-hover > li > a { text-decoration:none; color:inherit; padding:.3rem .1rem; display:inline-block; }
+  .nav-hover > li:hover { color:#0a58a0; }*/
+  .mega-drop {
+    position:absolute; top:100%; left:0; min-width:210px; background:white; border-radius:1.2rem;
+    padding:1.2rem 1.2rem .8rem; box-shadow:0 18px 36px -8px rgba(0,20,30,.15), 0 0 0 1px rgba(0,0,0,.02);
+    visibility:hidden; opacity:0; transform:translateY(6px) scale(.98);
+    transition:opacity .2s ease, transform .2s cubic-bezier(.2,.9,.3,1), visibility .2s; pointer-events:none; z-index:9999; border:1px solid #e6edf4;
+  }
+  .nav-hover > li:hover .mega-drop { visibility:visible; opacity:1; transform:translateY(4px) scale(1); pointer-events:auto; }
+  .drop-grid { display:grid; gap:.3rem; }
+  .drop-item { color:#3f5e7a; font-weight:500; font-size:.85rem; display:flex; align-items:center; gap:.4rem; padding:.35rem 0; text-decoration:none; }
+  .drop-item:hover { color:#0a58a0; }
+  .drop-item .bullet { color:#9fc4e6; }
+
+  .section { padding:3rem 0; }
+  .soft { background:#f8faff; }
+  /*footer { background:#0b1e33; color:#b8cee3; }
+  footer a { color:#c6d9ec; text-decoration:none; display:block; padding:.15rem 0; }
+  footer a:hover { color:white; }
+  footer .footer-logo { height:44px; }
+  hr { border-color:#284b68; }*/
+
+  .eyebrow { color:#0a58a0; font-weight:800; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; }
+  .section-title { color:#0b2a44; font-weight:800; font-size:clamp(1.5rem,3vw,2.1rem); margin:.3rem 0 .6rem; }
+  .section-sub { color:#4b6478; max-width:640px; margin:0 auto 2.2rem; }
+
+  /* ---- dept-header hero (matches other pages) ---- */
+  .dept-header {
+    background:linear-gradient(135deg,#183555,#2f94e7);
+    padding:3.2rem 0 2.6rem;
+  }
+  .dept-header .eyebrow { color:#9fd0f5; }
+  .dept-header h1 { color:#fff; font-size:clamp(2rem,4vw,2.8rem); margin:.3rem 0; font-weight:800; }
+  .dept-header p { color:#cfe0f2; max-width:620px; margin:0; font-size:1.05rem; }
+
+  /* =========================================================
+     QUICK CONTACT CARDS
+     ========================================================= */
+  .quick-card {
+    background:#fff; border:1px solid #e6edf4; border-radius:1.2rem; padding:1.6rem 1.4rem; height:100%;
+    display:flex; gap:1rem; align-items:flex-start; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .quick-card:hover { transform:translateY(-5px); box-shadow:0 16px 34px rgba(20,50,75,.09); }
+  .quick-icon {
+    width:52px; height:52px; flex:none; border-radius:1rem; background:#eaf1fa; color:#0a58a0;
+    display:flex; align-items:center; justify-content:center; font-size:1.4rem;
+  }
+  .quick-card h6 { color:#0b2a44; font-weight:800; font-size:.95rem; margin-bottom:.3rem; }
+  .quick-card p, .quick-card a { color:#4b6478; font-size:.88rem; line-height:1.55; margin:0; text-decoration:none; }
+  .quick-card a:hover { color:#0a58a0; }
+
+  /* =========================================================
+     CONTACT FORM + MAP
+     ========================================================= */
+  .contact-panel {
+    background:#fff; border:1px solid #e6edf4; border-radius:1.4rem; padding:2.2rem;
+    box-shadow:0 10px 30px rgba(20,50,75,.05); height:100%;
+  }
+  .contact-panel h4 { color:#0b2a44; font-weight:800; margin-bottom:.3rem; }
+  .contact-panel .sub { color:#8ba0b2; font-size:.9rem; margin-bottom:1.6rem; }
+  .form-label { font-weight:700; color:#3f5e7a; font-size:.85rem; margin-bottom:.35rem; }
+  .form-control, .form-select {
+    border:1px solid #e6edf4; border-radius:.8rem; padding:.65rem .9rem; font-size:.92rem;
+  }
+  .form-control:focus, .form-select:focus { border-color:#0a58a0; box-shadow:0 0 0 3px rgba(10,88,160,.1); }
+  .btn-send {
+    background:#0a58a0; color:#fff; border:none; border-radius:.8rem; padding:.75rem 1.8rem;
+    font-weight:700; font-size:.95rem; transition:.15s; display:inline-flex; align-items:center; gap:.5rem;
+  }
+  .btn-send:hover { background:#084a88; color:#fff; }
+  .form-success {
+    display:none; background:#eafaf0; border:1px solid #bfe8cf; color:#1a8a4c; border-radius:.8rem;
+    padding:.85rem 1rem; font-size:.9rem; font-weight:600; align-items:center; gap:.5rem;
+  }
+
+  .map-wrap { border-radius:1.4rem; overflow:hidden; border:1px solid #e6edf4; box-shadow:0 10px 30px rgba(20,50,75,.05); height:100%; min-height:340px; }
+  .map-wrap iframe { width:100%; height:100%; min-height:340px; border:0; display:block; }
+
+  /* =========================================================
+     DEPARTMENT DIRECTORY
+     ========================================================= */
+  .dir-card {
+    background:#fff; border:1px solid #e6edf4; border-radius:1.2rem; padding:1.3rem 1.4rem;
+    display:flex; align-items:center; gap:1rem; height:100%; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .dir-card:hover { transform:translateY(-4px); box-shadow:0 14px 30px rgba(20,50,75,.08); }
+  .dir-icon {
+    width:50px; height:50px; flex:none; border-radius:1rem; background:#eaf1fa; color:#0a58a0;
+    display:flex; align-items:center; justify-content:center; font-size:1.3rem;
+  }
+  .dir-card h6 { color:#0b2a44; font-weight:800; font-size:.95rem; margin-bottom:.2rem; }
+  .dir-card .dir-line { color:#4b6478; font-size:.82rem; display:flex; align-items:center; gap:.4rem; white-space:nowrap; }
+  .dir-card .dir-line i { color:#8ba0b2; font-size:.85rem; }
+
+  /* =========================================================
+     SOCIAL STRIP
+     ========================================================= */
+  .social-strip { display:flex; gap:.7rem; justify-content:center; flex-wrap:wrap; }
+  .social-btn {
+    width:48px; height:48px; border-radius:50%; background:#fff; border:1px solid #e6edf4; color:#0a58a0;
+    display:flex; align-items:center; justify-content:center; font-size:1.2rem; text-decoration:none; transition:.2s;
+  }
+  .social-btn:hover { background:#0a58a0; color:#fff; border-color:#0a58a0; transform:translateY(-3px); }
+</style>
+</head>
+<body>
+<div id="topbar"></div>
+
+
+<!-- ===== PAGE HEADER ===== -->
+<section class="dept-header">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> <span class="mx-2">/</span><a href="about.html">About</a> <span class="mx-2">/</span><a href="contact.html">Contact</a></div>
+    <span class="eyebrow">Get In Touch</span>
+    <h1 class="page-title">Contact Us</h1>
+    <p>Questions about admissions, academics, or campus facilities? We're here to help — reach out any way that's convenient for you.</p>
+  </div>
+</section>
+
+<!-- ===== QUICK CONTACT CARDS ===== -->
+<section class="section">
+  <div class="container">
+    <div class="row g-3">
+      <div class="col-md-6 col-lg-4">
+        <div class="quick-card">
+          <div class="quick-icon"><i class="bi bi-geo-alt"></i></div>
+          <div>
+            <h6>Campus Address</h6>
+            <p>Minara Road ,<br>Sukkur, Sindh, Pakistan</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="quick-card">
+          <div class="quick-icon"><i class="bi bi-telephone"></i></div>
+          <div>
+            <h6>Phone</h6>
+            <a href="tel:+9271123456">+92 71-9310390</a>
+            
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="quick-card">
+          <div class="quick-icon"><i class="bi bi-clock"></i></div>
+          <div>
+            <h6>Office Hours</h6>
+            <p>Mon – Fri: 9:00 AM – 1:30 PM<br>Admin Block, Ground Floor</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT FORM + MAP ===== -->
+<section class="section soft">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="contact-panel">
+          <h4>Send Us a Message</h4>
+          <p class="sub">We usually reply within 1–2 working days.</p>
+
+          <form id="contactForm">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" placeholder="Your name" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" placeholder="govt.islamia.sc.college.suk@gmail.com" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Subject</label>
+                <select class="form-select">
+                  <option>Admissions Inquiry</option>
+                  <option>Academic / Faculty Query</option>
+                  <option>Facilities &amp; Resources</option>
+                  <option>General Feedback</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Message</label>
+                <textarea class="form-control" rows="5" placeholder="How can we help?" required></textarea>
+              </div>
+              <div class="col-12 d-flex align-items-center gap-3 flex-wrap">
+                <button type="submit" class="btn-send"><i class="bi bi-send"></i> Send Message</button>
+                <div class="form-success" id="formSuccess"><i class="bi bi-check-circle-fill"></i> Message sent — we'll get back to you soon!</div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="map-wrap">
+          <iframe
+            src="https://maps.google.com/maps?q=Government%20Islamia%20Science%20College%20Sukkur&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DEPARTMENT DIRECTORY ===== -->
+<section class="section">
+  <div class="container">
+    <div class="text-center">
+      <span class="eyebrow">Reach the Right Desk</span>
+      <h2 class="section-title">Department Directory</h2>
+      <p class="section-sub mx-auto">For faster help, contact the specific department directly.</p>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="dir-card">
+          <div class="dir-icon"><i class="bi bi-mortarboard"></i></div>
+          <div>
+            <h6>Admission</h6>
+            <div class="dir-line"><i class="bi bi-envelope"></i> govt.islamia.sc.college.suk@gmail.com</div>
+            <div class="dir-line"><i class="bi bi-telephone"></i> +92 71-9310390</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="dir-card">
+          <div class="dir-icon"><i class="bi bi-file-earmark-text"></i></div>
+          <div>
+            <h6>Exam</h6>
+            <div class="dir-line"><i class="bi bi-envelope"></i> govt.islamia.sc.college.suk@gmail.com</div>
+            <div class="dir-line"><i class="bi bi-telephone"></i> +92 71-9310390</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="dir-card">
+          <div class="dir-icon"><i class="bi bi-cash-coin"></i></div>
+          <div>
+            <h6>Account</h6>
+            <div class="dir-line"><i class="bi bi-envelope"></i> govt.islamia.sc.college.suk@gmail.com</div>
+            <div class="dir-line"><i class="bi bi-telephone"></i> +92 71-9310390</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="dir-card">
+          <div class="dir-icon"><i class="bi bi-person-workspace"></i></div>
+          <div>
+            <h6>Principal</h6>
+            <div class="dir-line"><i class="bi bi-envelope"></i> principal@islamiasciencesukkur.edu.pk</div>
+            <div class="dir-line"><i class="bi bi-telephone"></i> +92 71-9310390</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOCIAL STRIP ===== -->
+<section class="section soft" style="padding-top:0;">
+  <div class="container text-center">
+    <span class="eyebrow">Follow Us</span>
+    <h2 class="section-title mb-4">Stay Connected</h2>
+    <div class="social-strip">
+      <a href="https://www.facebook.com/GISCSukkur" class="social-btn"><i class="bi bi-facebook"></i></a>
+      <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+      <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+      <a href="#" class="social-btn"><i class="bi bi-youtube"></i></a>
+      <a href="#" class="social-btn"><i class="bi bi-linkedin"></i></a>
+    </div>
+  </div>
+</section>
+
+
+<div id="footer"></div>
+<script src="assets/js/load.js"></script>
+<script src="assets/js/chatbot-widget.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* Contact form — front-end only demo. Wire the fetch() call below to your
+   real backend endpoint (e.g. POST /api/contact) to actually send messages. */
+document.getElementById("contactForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  // Example real wiring:
+  // fetch("/api/contact", { method: "POST", body: new FormData(this) });
+  document.getElementById("formSuccess").style.display = "flex";
+  this.reset();
+});
+</script>
+</body>
+</html>

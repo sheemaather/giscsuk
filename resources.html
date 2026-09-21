@@ -1,0 +1,1014 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resources | Govt. Islamia Science College Sukkur</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="assets/css/style.css" rel="stylesheet">
+<link href="assets/css/chatbot.css" rel="stylesheet">
+<link href="assets/css/department.css" rel="stylesheet">
+
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#f2f5f9; font-family:'Inter', system-ui, -apple-system, sans-serif; }
+
+  /* ---- shared topbar / nav / footer (same as other pages) ---- */
+  .navbar-custom { background:white; box-shadow:0 4px 12px rgba(0,0,0,.03); border-bottom:1px solid #eef2f6; padding:.2rem 0; }
+  .navbar-custom .container { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+  .brand-wrap { display:flex; align-items:center; gap:.5rem; text-decoration:none; color:#0b1e33; }
+  .brand-wrap img { height:42px; width:auto; }
+  .brand-wrap .brand-text { line-height:1.2; }
+  .brand-wrap .brand-text strong { font-size:.9rem; display:block; font-weight:700; letter-spacing:-.01em; }
+  .brand-wrap .brand-text small { font-size:.7rem; color:#3f5e7a; font-weight:500; }
+  .nav-hover { display:flex; flex-wrap:wrap; align-items:center; gap:.3rem 1rem; list-style:none; margin:0; padding:.4rem 0; }
+  .nav-hover > li { position:relative; padding:.4rem 0; font-weight:600; font-size:.95rem; color:#1a2639; cursor:default; transition:color .15s; letter-spacing:-.01em; }
+  .nav-hover > li > a { text-decoration:none; color:inherit; padding:.3rem .1rem; display:inline-block; }
+  .nav-hover > li:hover { color:#0a58a0; }
+  .mega-drop {
+    position:absolute; top:100%; left:0; min-width:210px; background:white; border-radius:1.2rem;
+    padding:1.2rem 1.2rem .8rem; box-shadow:0 18px 36px -8px rgba(0,20,30,.15), 0 0 0 1px rgba(0,0,0,.02);
+    visibility:hidden; opacity:0; transform:translateY(6px) scale(.98);
+    transition:opacity .2s ease, transform .2s cubic-bezier(.2,.9,.3,1), visibility .2s; pointer-events:none; z-index:9999; border:1px solid #e6edf4;
+  }
+  .nav-hover > li:hover .mega-drop { visibility:visible; opacity:1; transform:translateY(4px) scale(1); pointer-events:auto; }
+  .drop-grid { display:grid; gap:.3rem; }
+  .drop-item { color:#3f5e7a; font-weight:500; font-size:.85rem; display:flex; align-items:center; gap:.4rem; padding:.35rem 0; text-decoration:none; }
+  .drop-item:hover { color:#0a58a0; }
+  .drop-item .bullet { color:#9fc4e6; }
+
+  .section { padding:3rem 0; }
+  .soft { background:#f8faff; }
+  footer { background:#0b1e33; color:#b8cee3; }
+  footer a { color:#c6d9ec; text-decoration:none; display:block; padding:.15rem 0; }
+  footer a:hover { color:white; }
+  footer .footer-logo { height:44px; }
+  hr { border-color:#284b68; }
+
+  .eyebrow { color:#0a58a0; font-weight:800; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; }
+  .section-title { color:#0b2a44; font-weight:800; font-size:clamp(1.5rem,3vw,2.1rem); margin:.3rem 0 .6rem; }
+  .section-sub { color:#4b6478; max-width:640px; margin:0 auto 2.2rem; }
+
+  /* =========================================================
+     LOCAL QUICK-JUMP MENU — self-contained on this page, so it
+     works even if the shared header's Resources dropdown isn't
+     wired up yet.
+     ========================================================= */
+  .quickjump { background:#0b1e33; position:sticky; top:0; z-index:500; box-shadow:0 4px 14px rgba(0,0,0,.12); }
+  .quickjump .container { display:flex; gap:.4rem; flex-wrap:wrap; padding:.6rem 0; justify-content:center; }
+  .quickjump a {
+    color:#cddcec; text-decoration:none; font-weight:700; font-size:.85rem;
+    padding:.5rem 1rem; border-radius:999px; transition:.15s; display:flex; align-items:center; gap:.45rem;
+  }
+  .quickjump a i { font-size:.95rem; color:#7ea6d0; }
+  .quickjump a:hover, .quickjump a.active { background:#0a58a0; color:#fff; }
+  .quickjump a:hover i, .quickjump a.active i { color:#fff; }
+  #resTabs, #non-teaching-staff { scroll-margin-top:80px; }
+
+  /* =========================================================
+     HERO SLIDER — 5 slides, autoplay, ken-burns zoom, progress bar
+     ========================================================= */
+  .hero-slider { position:relative; height:min(480px,60vh); overflow:hidden; border-radius:0 0 2.2rem 2.2rem; background:#0b1e33; }
+  .hero-progress-track { position:absolute; top:0; left:0; right:0; height:4px; background:rgba(255,255,255,.15); z-index:5; }
+  .hero-progress-bar { height:100%; width:0%; background:linear-gradient(90deg,#38b6ff,#0a58a0); }
+  .hero-slide {
+    position:absolute; inset:0; opacity:0; transition:opacity .9s ease; display:flex; align-items:flex-end;
+    background-size:cover; background-position:center;
+  }
+  .hero-slide.active { opacity:1; }
+  .hero-slide .hero-bg {
+    position:absolute; inset:0; background-size:cover; background-position:center; transform:scale(1);
+    transition:transform 7s linear;
+  }
+  .hero-slide.active .hero-bg { transform:scale(1.12); }
+  .hero-slide::before {
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(11,30,51,.15) 0%, rgba(11,30,51,.55) 65%, rgba(11,30,51,.92) 100%);
+    z-index:1;
+  }
+  .hero-slide .hero-icon-mark { position:absolute; top:1.6rem; right:2rem; font-size:5rem; color:rgba(255,255,255,.12); z-index:1; }
+  .hero-slide-content { position:relative; z-index:2; padding:2.4rem clamp(1.2rem,5vw,3.5rem); color:#fff; max-width:640px; }
+  .hero-slide-content .tag {
+    display:inline-flex; align-items:center; gap:.4rem; background:rgba(255,255,255,.12); backdrop-filter:blur(4px);
+    border:1px solid rgba(255,255,255,.25); color:#bfe0ff; font-size:.72rem; font-weight:800; letter-spacing:.06em;
+    text-transform:uppercase; padding:.3rem .8rem; border-radius:999px; margin-bottom:.8rem;
+  }
+  .hero-slide-content h2 { font-size:clamp(1.6rem,3.4vw,2.5rem); font-weight:800; margin-bottom:.5rem; }
+  .hero-slide-content p { color:#dbe8f5; font-size:.95rem; max-width:520px; }
+
+  .hero-arrow {
+    position:absolute; top:50%; transform:translateY(-50%); z-index:4; width:44px; height:44px; border-radius:50%;
+    background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3); color:#fff; font-size:1.3rem;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; transition:.2s; backdrop-filter:blur(4px);
+  }
+  .hero-arrow:hover { background:#0a58a0; border-color:#0a58a0; }
+  .hero-arrow.prev { left:1rem; } .hero-arrow.next { right:1rem; }
+
+  .hero-dots { position:absolute; bottom:1.3rem; right:clamp(1.2rem,5vw,3.5rem); z-index:4; display:flex; gap:.5rem; }
+  .hero-dot { width:10px; height:10px; border-radius:999px; background:rgba(255,255,255,.4); cursor:pointer; transition:.25s; }
+  .hero-dot.active { width:30px; background:#38b6ff; }
+
+  /* =========================================================
+     ASSISTANT INTRO
+     ========================================================= */
+  .assistant-card {
+    background:#fff; border:1px solid #e6edf4; border-radius:1.4rem; padding:2.2rem;
+    display:flex; gap:2.2rem; align-items:center; box-shadow:0 10px 30px rgba(20,50,75,.05); flex-wrap:wrap;
+  }
+  .assistant-photo {
+    width:170px; height:170px; flex:none; border-radius:50%; background:linear-gradient(145deg,#eaf6ff,#dbeeff);
+    border:4px solid #eaf6ff; display:flex; align-items:center; justify-content:center; font-size:3rem;
+    font-weight:800; color:#0a58a0; overflow:hidden;
+  }
+  .assistant-photo img { width:100%; height:100%; object-fit:cover; object-position:center top; border-radius:50%; }
+  .assistant-card h4 { color:#0b2a44; font-weight:800; margin-bottom:.15rem; }
+  .assistant-card .role { color:#0a58a0; font-weight:700; font-size:.88rem; margin-bottom:.8rem; }
+  .assistant-card p.msg { color:#4b6478; font-size:.92rem; line-height:1.65; margin-bottom:1rem; }
+  .assistant-chips { display:flex; gap:.6rem; flex-wrap:wrap; }
+  .assistant-chip { background:#eaf1fa; color:#3f5e7a; font-size:.78rem; font-weight:700; padding:.4rem .9rem; border-radius:999px; display:flex; align-items:center; gap:.4rem; }
+  .assistant-chip i { color:#0a58a0; }
+
+  .assistant-card {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: nowrap;
+}
+
+
+.assistant-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 50%;
+}
+
+.assistant-card > div:last-child {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+  /* =========================================================
+     FACILITIES GRID
+     ========================================================= */
+  .facility-card {
+    background:#fff; border:1px solid #e6edf4; border-radius:1.2rem; padding:1.5rem 1.3rem; height:100%;
+    text-align:center; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .facility-card:hover { transform:translateY(-6px); box-shadow:0 16px 34px rgba(20,50,75,.1); border-color:#cfe3f7; }
+  .facility-icon {
+    width:56px; height:56px; margin:0 auto .9rem; border-radius:1rem; background:#eaf1fa; color:#0a58a0;
+    display:flex; align-items:center; justify-content:center; font-size:1.5rem; transition:.25s;
+  }
+  .facility-card:hover .facility-icon { background:#0a58a0; color:#fff; transform:rotate(-6deg) scale(1.08); }
+  .facility-card h6 { color:#0b2a44; font-weight:800; font-size:.9rem; margin-bottom:.35rem; }
+  .facility-card span { color:#8ba0b2; font-size:.78rem; }
+
+  /* =========================================================
+     RESOURCE EXPLORER (Library / Labs / Blocks) — compressed, expand on click
+     ========================================================= */
+  .res-tabs { display:flex; gap:.5rem; flex-wrap:wrap; justify-content:center; margin-bottom:2.2rem; }
+  .res-tab-btn {
+    border:1px solid #e6edf4; background:#fff; color:#3f5e7a; font-weight:700; font-size:.88rem;
+    padding:.6rem 1.4rem; border-radius:999px; cursor:pointer; transition:.2s; display:flex; align-items:center; gap:.5rem;
+  }
+  .res-tab-btn i { font-size:1rem; }
+  .res-tab-btn:hover { border-color:#0a58a0; color:#0a58a0; }
+  .res-tab-btn.active { background:#0a58a0; border-color:#0a58a0; color:#fff; }
+
+  .res-group { display:none; }
+  .res-group.active { display:grid; gap:1.1rem; }
+
+  .res-card {
+    background:#fff; border:1px solid #e6edf4; border-radius:1.2rem; overflow:hidden;
+    box-shadow:0 4px 16px rgba(20,50,75,.04); transition:box-shadow .2s ease, border-color .2s ease;
+  }
+  .res-card.open { border-color:#cfe3f7; box-shadow:0 14px 32px rgba(20,50,75,.09); }
+  .res-card-head {
+    display:flex; align-items:center; gap:1rem; padding:1.1rem 1.3rem; cursor:pointer; user-select:none;
+  }
+  .res-card-icon {
+    width:50px; height:50px; flex:none; border-radius:1rem; background:#eaf1fa; color:#0a58a0;
+    display:flex; align-items:center; justify-content:center; font-size:1.4rem; transition:.25s;
+  }
+  .res-card.open .res-card-icon { background:#0a58a0; color:#fff; }
+  .res-card-head-text { flex:1; min-width:0; }
+  .res-card-head-text h5 { color:#0b2a44; font-weight:800; font-size:.98rem; margin:0; }
+  .res-card-head-text .res-tagline { color:#8ba0b2; font-size:.8rem; }
+  .res-card-stat { background:#eaf1fa; color:#0a58a0; font-size:.72rem; font-weight:800; padding:.3rem .7rem; border-radius:999px; white-space:nowrap; }
+  .res-card-chevron { color:#8ba0b2; font-size:1.1rem; transition:transform .3s ease; flex:none; }
+  .res-card.open .res-card-chevron { transform:rotate(180deg); color:#0a58a0; }
+
+  .res-card-body { max-height:0; overflow:hidden; transition:max-height .35s ease; }
+  .res-card-body-inner { padding:0 1.3rem 1.4rem 1.3rem; border-top:1px solid #eef2f6; margin-top:.2rem; }
+  .res-card-body-inner p { color:#4b6478; font-size:.9rem; line-height:1.65; margin:1rem 0 1rem; }
+  .res-feature-list { list-style:none; padding:0; margin:0 0 1rem; display:grid; gap:.55rem; }
+  .res-feature-list li { color:#3f5e7a; font-size:.87rem; display:flex; align-items:flex-start; gap:.55rem; }
+  .res-feature-list i { color:#1a8a4c; margin-top:.15rem; }
+  .res-info-row { display:flex; gap:.6rem; flex-wrap:wrap; }
+  .res-info-chip { background:#f8faff; border:1px solid #e6edf4; color:#3f5e7a; font-size:.76rem; font-weight:700; padding:.35rem .8rem; border-radius:999px; display:flex; align-items:center; gap:.4rem; }
+  .res-info-chip i { color:#0a58a0; }
+
+  @media (min-width: 768px) {
+    .res-group { grid-template-columns:1fr 1fr; align-items:start; }
+    .res-card.open { grid-column:1 / -1; }
+    .res-intro { grid-column:1 / -1; }
+  }
+  .res-intro { margin-bottom:.4rem; }
+  .res-intro .assistant-card { padding:1.6rem 1.8rem; gap:1.6rem; }
+  .res-intro .assistant-photo { width:120px; height:120px; font-size:2.2rem; }
+
+  /* ===== Photo inside a res-card (used for Labs & Blocks) ===== */
+  .res-card-photo {
+    width:100%; height:170px; object-fit:cover; display:block;
+    border-radius:.9rem; margin:1rem 0 .2rem;
+    box-shadow:0 8px 20px rgba(20,50,75,.08);
+  }
+
+  /* ===== Multi-photo grid inside a res-card (used for Labs — fits 1 to 5+ photos) ===== */
+  .res-card-photos {
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(100px, 1fr));
+    gap:8px; margin:1rem 0 .2rem;
+  }
+  .res-card-photos img {
+    width:100%; height:100px; object-fit:cover; border-radius:.7rem;
+    box-shadow:0 6px 16px rgba(20,50,75,.08); transition:transform .2s ease;
+  }
+  .res-card-photos img:hover { transform:translateY(-3px); }
+  /* If there's only one photo, let it take the full width and sit taller */
+  .res-card-photos:has(img:only-child) { grid-template-columns:1fr; }
+  .res-card-photos:has(img:only-child) img { height:170px; }
+
+  /* ===== Sports gallery strip (pulled from the gallery table, category = Sports) ===== */
+  .sports-gallery { margin:1.6rem 0 2rem; }
+  .sports-gallery-grid {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:14px;
+  }
+  .sports-gallery-grid img {
+    width:100%; height:150px; object-fit:cover; border-radius:1rem;
+    box-shadow:0 8px 20px rgba(20,50,75,.08); transition:transform .25s ease;
+  }
+  .sports-gallery-grid img:hover { transform:translateY(-4px); }
+  .sports-gallery-empty { color:#8ba0b2; font-size:.85rem; text-align:center; padding:.5rem 0; }
+  @media (max-width:700px){ .sports-gallery-grid { grid-template-columns:repeat(2,1fr); } }
+</style>
+</head>
+<body>
+  
+  <div data-include="partials/header.html"></div>
+<script src="assets/js/include-partials.js"></script>
+
+
+  <!-- ===== LOCAL QUICK-JUMP MENU (self-contained, no dependency on header.html) ===== -->
+  <nav class="quickjump" id="quickJump">
+    <div class="container">
+      <a href="#group-library" data-jump="group-library"><i class="bi bi-book"></i> Library</a>
+      <a href="#group-sports" data-jump="group-sports"><i class="bi bi-trophy"></i> Sports</a>
+      <a href="#group-labs" data-jump="group-labs"><i class="bi bi-flask"></i> Labs</a>
+      <a href="#group-blocks" data-jump="group-blocks"><i class="bi bi-building"></i> Blocks</a>
+      <a href="#non-teaching-staff" data-jump="non-teaching-staff"><i class="bi bi-people"></i> Non-Teaching Staff</a>
+    </div>
+  </nav>
+
+<!-- ===== HERO SLIDER ===== -->
+<section class="hero-slider" id="heroSlider">
+  <div class="hero-progress-track"><div class="hero-progress-bar" id="heroProgress"></div></div>
+
+  <div class="hero-slide active" data-color="#123a5c,#0b2941">
+    <div class="hero-bg" style="background-image:linear-gradient(135deg,rgba(214, 227, 239, 0.5),rgba(203, 219, 231, 0.5)), url('assets/images/DSC_7063.JPG'); background-size:cover; background-position:center;"></div>
+    <i class="bi bi-book-half hero-icon-mark"></i>
+    <div class="hero-slide-content">
+      <span class="tag"><i class="bi bi-building"></i> Central Library</span>
+      <h2>A Home for Readers &amp; Researchers</h2>
+      <p>20,000+ books, silent study halls and a dedicated reference wing — open every academic day for students and faculty.</p>
+    </div>
+  </div>
+
+  <div class="hero-slide" data-color="#0a58a0,#08406e">
+    <div class="hero-bg" style="background-image:linear-gradient(135deg,rgba(226, 231, 237, 0.5),rgba(196, 217, 235, 0.5)), url('assets/images/DSC_7090.JPG'); background-size:cover; background-position:center;"></div>
+    <i class="bi bi-cpu hero-icon-mark"></i>
+    <div class="hero-slide-content">
+      <span class="tag"><i class="bi bi-motherboard"></i> Computer Science Lab</span>
+      <h2>Hands-On Computing Facilities</h2>
+      <p>40+ networked systems, high-speed internet and a dedicated lab assistant for every practical session.</p>
+    </div>
+  </div>
+
+  <div class="hero-slide" data-color="#1a6b8a,#0e3d52">
+    <div class="hero-bg" style="background-image:linear-gradient(135deg,rgba(146, 192, 210, 0.5),rgba(174, 200, 213, 0.5)), url('assets/images/DSC_7056.JPG'); background-size:cover; background-position:center;"></div>
+    <i class="bi bi-flask hero-icon-mark"></i>
+    <div class="hero-slide-content">
+      <span class="tag"><i class="bi bi-eyedropper"></i> Science Laboratories</span>
+      <h2>Physics, Chemistry &amp; Biology Labs</h2>
+      <p>Fully equipped apparatus, safety gear and demonstration setups supervised by trained lab staff.</p>
+    </div>
+  </div>
+
+  <div class="hero-slide" data-color="#2c5f8a,#123047">
+    <div class="hero-bg" style="background-image:linear-gradient(135deg,rgba(166, 186, 203, 0.5),rgba(183, 204, 221, 0.5)), url('assets/images/DSC_7136.JPG'); background-size:cover; background-position:center;"></div>
+    <i class="bi bi-diagram-3 hero-icon-mark"></i>
+    <div class="hero-slide-content">
+      <span class="tag"><i class="bi bi-building-gear"></i> Academic Blocks</span>
+      <h2>Purpose-Built Learning Spaces</h2>
+      <p>Science, Arts and Admin blocks designed for focused learning, easy access and campus-wide connectivity.</p>
+    </div>
+  </div>
+
+  <div class="hero-slide" data-color="#0b2941,#061a2c">
+    <div class="hero-bg" style="background-image:linear-gradient(135deg,rgba(177, 212, 241, 0.5),rgba(155, 179, 201, 0.5)), url('assets/images/DSC_7078.jpg'); background-size:cover; background-position:center;"></div>
+    <i class="bi bi-people hero-icon-mark"></i>
+    <div class="hero-slide-content">
+      <span class="tag"><i class="bi bi-headset"></i> Student Support</span>
+      <h2>Assistants Ready to Help</h2>
+      <p>Library and lab assistants are on-site throughout college hours to guide students through every resource.</p>
+    </div>
+  </div>
+
+  <button class="hero-arrow prev" id="heroPrev"><i class="bi bi-chevron-left"></i></button>
+  <button class="hero-arrow next" id="heroNext"><i class="bi bi-chevron-right"></i></button>
+  <div class="hero-dots" id="heroDots"></div>
+</section>
+
+<!-- ===== FACILITIES FOR STUDENTS ===== -->
+<section class="section soft">
+  <div class="container">
+    <div class="text-center">
+      <span class="eyebrow">What's Included</span>
+      <h2 class="section-title">Lab &amp; Campus Facilities</h2>
+      <p class="section-sub mx-auto">Everything students need for a smooth, safe and productive learning experience.</p>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-6 col-md-4 col-lg-2"><div class="facility-card"><div class="facility-icon"><i class="bi bi-wifi"></i></div><h6>High-Speed Wi-Fi</h6><span>Campus-wide access</span></div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="facility-card"><div class="facility-icon"><i class="bi bi-camera-video"></i></div><h6>CCTV Security</h6><span>24/7 monitored</span></div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="facility-card"><div class="facility-icon"><i class="bi bi-lightning-charge"></i></div><h6>Backup Power</h6><span>UPS &amp; generator</span></div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="facility-card"><div class="facility-icon"><i class="bi bi-snow"></i></div><h6>AC Labs</h6><span>Comfortable year-round</span></div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="facility-card"><div class="facility-icon"><i class="bi bi-clock-history"></i></div><h6>Extended Hours</h6><span>9 AM –  2 PM daily</span></div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="facility-card"><div class="facility-icon"><i class="bi bi-person-check"></i></div><h6>Trained Staff</h6><span>On-site assistance</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESOURCE EXPLORER: Library / Labs / Blocks ===== -->
+<section class="section">
+  <div class="container">
+    <div class="text-center">
+      <span class="eyebrow">Explore</span>
+      <h2 class="section-title">Library, Labs &amp; Blocks</h2>
+      <p class="section-sub mx-auto">Tap any card to expand full details — equipment, seating, timings and rules.</p>
+    </div>
+
+    <div class="res-tabs" id="resTabs">
+      <button class="res-tab-btn active" data-group="library"><i class="bi bi-book"></i> Library</button>
+      <button class="res-tab-btn" data-group="sports"><i class="bi bi-trophy"></i> Sports</button>
+      <button class="res-tab-btn" data-group="labs"><i class="bi bi-flask"></i> Labs</button>
+      <button class="res-tab-btn" data-group="blocks"><i class="bi bi-building"></i> Blocks</button>
+    </div>
+
+    <!-- LIBRARY -->
+    <div class="res-group active" id="group-library">
+
+      <div class="res-intro">
+        <div class="assistant-card">
+          <div class="assistant-photo"><img src="assets/images/chachar.jfif" alt="Liaqat Ali Chachar"></div>
+          <div>
+            <h4>Liaqat Ali Chachar</h4>
+            <div class="role">Librarian, BPS-18</div>
+            <p class="msg">PG Diploma in Library Science, M.Ed., M.A. (English). 14 years of experience as Librarian, with a research interest in e-libraries and modernizing library work. Awarded a certificate by the Regional Director for "Best Librarian."</p>
+            <div class="assistant-chips">
+              <span class="assistant-chip"><i class="bi bi-award"></i> 14+ Years Experience</span>
+              <span class="assistant-chip"><i class="bi bi-clock"></i> Available 9 AM – 2 PM</span>
+              <span class="assistant-chip"><i class="bi bi-geo-alt"></i> Library &amp; Science Block</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-building"></i></div>
+          <div class="res-card-head-text"><h5>Central Library</h5><span class="res-tagline">Main reading hall &amp; book collection</span></div>
+          <span class="res-card-stat">500+ Seats</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <div class="res-card-photos">
+              <img src="assets/images/DSC_7068.JPG" alt="Central Library"></div>
+            <p>The main library hall offers a quiet environment with organized subject-wise book shelves and dedicated silent-study zones for focused reading.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> 20,000+ books across all departments</li>
+              <li><i class="bi bi-check-circle-fill"></i> Silent study zone &amp; group discussion tables</li>
+              <li><i class="bi bi-check-circle-fill"></i> Subject-wise catalogue with librarian assistance</li>
+            </ul>
+            <div class="res-info-row">
+              <span class="res-info-chip"><i class="bi bi-clock"></i> 8:00 AM – 6:00 PM</span>
+              <span class="res-info-chip"><i class="bi bi-people"></i> 500+ Capacity</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-laptop"></i></div>
+          <div class="res-card-head-text"><h5>Digital Library &amp; E-Resources</h5><span class="res-tagline">Online journals, past papers, HEC access</span></div>
+          <span class="res-card-stat">30 PCs</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <div class="res-card-photos">
+              <img src="assets/images/DSC_7064.JPG" alt="Digital Library"></div>
+            <p>Networked computers give students access to HEC's digital library, e-journals and a searchable past-papers archive for exam preparation.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> HEC digital library &amp; e-journal access</li>
+              <li><i class="bi bi-check-circle-fill"></i> Past papers &amp; question-bank archive</li>
+              <li><i class="bi bi-check-circle-fill"></i> Printing &amp; scanning assistance available</li>
+            </ul>
+            <div class="res-info-row">
+              <span class="res-info-chip"><i class="bi bi-clock"></i> 9:00 AM – 4:00 PM</span>
+              <span class="res-info-chip"><i class="bi bi-pc-display"></i> 30 Networked PCs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-newspaper"></i></div>
+          <div class="res-card-head-text"><h5>Reading &amp; Reference Section</h5><span class="res-tagline">Newspapers, magazines, reference-only books</span></div>
+          <span class="res-card-stat">Reference Only</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <div class="res-card-photos">
+              <img src="assets/images/DSC_7063.JPG" alt="Reading & Reference Section"></div>
+            </div>
+            <p>A dedicated corner for daily newspapers, magazines and reference books that stay in the library for on-the-spot consultation.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> Daily newspapers &amp; academic magazines</li>
+              <li><i class="bi bi-check-circle-fill"></i> Reference encyclopedias &amp; dictionaries</li>
+              <li><i class="bi bi-check-circle-fill"></i> Small group study rooms (bookable)</li>
+            </ul>
+            <div class="res-info-row">
+              <span class="res-info-chip"><i class="bi bi-clock"></i> 9:00 AM – 2:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SPORTS -->
+    <div class="res-group" id="group-sports">
+
+      <div class="res-intro">
+        <div class="assistant-card">
+          <div class="assistant-photo"><img src="assets/images/Madshabana.JPEG" alt="Shabana Soomro"></div>
+          <div>
+            <h4>Shabana Soomro</h4>
+            <div class="role">Additional Director Physical Education, BPS-19</div>
+            <p class="msg">BS Physical Education. Oversees the college's sports grounds, indoor games facilities and student athletic activities.</p>
+            <div class="assistant-chips">
+              <span class="assistant-chip"><i class="bi bi-award"></i> 25+ Years Experience</span>
+              <span class="assistant-chip"><i class="bi bi-clock"></i> Available 9 AM – 2 PM</span>
+              <span class="assistant-chip"><i class="bi bi-geo-alt"></i> Office AD PE &amp; Block A</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photos pulled live from the gallery table where category = "Sports" -->
+      <div class="sports-gallery">
+        <div class="sports-gallery-grid" id="sportsGalleryGrid"></div>
+      </div>
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-trophy"></i></div>
+          <div class="res-card-head-text"><h5>Sports Ground</h5><span class="res-tagline">Outdoor field for cricket, football &amp; athletics</span></div>
+          <span class="res-card-stat">Open Air</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <p>A dedicated outdoor ground used for cricket, football and athletics practice, as well as inter-class and annual sports events.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> Cricket &amp; football practice area</li>
+              <li><i class="bi bi-check-circle-fill"></i> Track space for athletics events</li>
+              <li><i class="bi bi-check-circle-fill"></i> Supervised by the Physical Education department</li>
+            </ul>
+            <div class="res-info-row">
+              <span class="res-info-chip"><i class="bi bi-clock"></i> 9:00 AM – 2:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-controller"></i></div>
+          <div class="res-card-head-text"><h5>Indoor Games &amp; Common Room</h5><span class="res-tagline">Table tennis, carrom &amp; student gatherings</span></div>
+          <span class="res-card-stat">Indoor</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <p>A common room where students can play indoor games and relax between classes.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> Table tennis &amp; carrom boards</li>
+              <li><i class="bi bi-check-circle-fill"></i> Seating area for student gatherings</li>
+            </ul>
+            <div class="res-info-row">
+              <span class="res-info-chip"><i class="bi bi-clock"></i> 9:00 AM – 2:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-bag"></i></div>
+          <div class="res-card-head-text"><h5>Sports Kits &amp; Equipment</h5><span class="res-tagline">Issued for practice &amp; college tournaments</span></div>
+          <span class="res-card-stat">On Request</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <p>Sports equipment and kits are issued to students representing the college in practice sessions and tournaments.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> Cricket, football &amp; athletics equipment</li>
+              <li><i class="bi bi-check-circle-fill"></i> Issued through the PE department office</li>
+            </ul>
+            <div class="res-info-row">
+              <span class="res-info-chip"><i class="bi bi-clock"></i> 9:00 AM – 2:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LABS -->
+    <div class="res-group" id="group-labs">
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-cpu"></i></div>
+          <div class="res-card-head-text"><h5>Computer Science Lab</h5><span class="res-tagline">Programming, networking &amp; practicals</span></div>
+          <span class="res-card-stat">40 Systems</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <div class="res-card-photos">
+              <img src="assets/images/DSC_7090.JPG" alt="Computer Science Lab"><img src="assets/images/lab-computer-science.jpg" alt="Computer Science Lab">
+            </div>
+            <p>A fully networked lab used for programming practicals, project work and computer science coursework, supervised by a lab assistant.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> 40 systems with dual-OS setup</li>
+              <li><i class="bi bi-check-circle-fill"></i> High-speed internet &amp; projector</li>
+              <li><i class="bi bi-check-circle-fill"></i> Lab assistant present during all sessions</li>
+            </ul>
+            <div class="res-info-row">
+              <span class="res-info-chip"><i class="bi bi-clock"></i> 9:00 AM – 1:30 PM</span>
+              <span class="res-info-chip"><i class="bi bi-pc-display"></i> 40 Systems</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-magnet"></i></div>
+          <div class="res-card-head-text"><h5>Physics Lab</h5><span class="res-tagline">Mechanics, optics &amp; electricity apparatus</span></div>
+          <span class="res-card-stat">30 Seats</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <div class="res-card-photos">
+              <img src="assets/images/DSC_7059.JPG" alt="Physics Lab">
+              <img src="assets/images/DSC_7056.JPG" alt="Physics Lab">
+              <img src="assets/images/DSC_7017.JPG" alt="Physics Lab">
+              <img src="assets/images/DSC_7056.JPG" alt="Physics Lab">
+            </div>
+            <p>Equipped with standard demonstration and hands-on apparatus for mechanics, optics and electricity experiments.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> Optics, electricity &amp; mechanics apparatus sets</li>
+              <li><i class="bi bi-check-circle-fill"></i> Demonstration equipment for practicals</li>
+              <li><i class="bi bi-check-circle-fill"></i> Safety guidelines posted &amp; enforced</li>
+            </ul>
+            <div class="res-info-row">
+              <span class="res-info-chip"><i class="bi bi-clock"></i> 8:00 AM – 2:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-droplet-half"></i></div>
+          <div class="res-card-head-text"><h5>Chemistry Lab</h5><span class="res-tagline">Titration, reactions &amp; safety-first practicals</span></div>
+          <span class="res-card-stat">30 Seats</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <div class="res-card-photos">
+              <img src="assets/images/lab-chemistry.jpg" alt="Chemistry Lab">
+            </div>
+            <p>Fitted with fume hoods and safety equipment, this lab supports titration, reaction and analytical chemistry practicals.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> Fume hoods &amp; safety showers</li>
+              <li><i class="bi bi-check-circle-fill"></i> PPE (goggles, gloves, aprons) provided</li>
+              <li><i class="bi bi-check-circle-fill"></i> Titration &amp; analytical equipment sets</li>
+            </ul>
+            <div class="res-info-row">
+              <span class="res-info-chip"><i class="bi bi-clock"></i> 8:00 AM – 2:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-flower1"></i></div>
+          <div class="res-card-head-text"><h5>Zoology Lab</h5><span class="res-tagline">Specimens, microscopy &amp; dissection</span></div>
+          <span class="res-card-stat">25 Seats</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <div class="res-card-photos">
+              <img src="assets/images/WhatsApp Image 2026-09-16 at 10.55.19 AM.jpeg" alt="Zoology Lab">
+              <img src="assets/images/WhatsApp Image 2026-09-16 at 10.55.20 AM (1).jpeg" alt="Zoology Lab">
+              <img src="assets/images/WhatsApp Image 2026-09-16 at 10.55.20 AM.jpeg" alt="Zoology Lab">
+              <img src="assets/images/WhatsApp Image 2026-09-16 at 10.55.22 AM.jpeg" alt="Zoology Lab">
+              <img src="assets/images/WhatsApp Image 2026-09-16 at 10.55.29 AM.jpeg" alt="Zoology Lab">
+            
+            </div>
+            <p>Houses a specimen herbarium, microscopes and dissection kits for practical study of plant and animal biology.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> Microscopes &amp; prepared slide sets</li>
+              <li><i class="bi bi-check-circle-fill"></i> Herbarium &amp; specimen collection</li>
+              <li><i class="bi bi-check-circle-fill"></i> Dissection kits &amp; safety supervision</li>
+            </ul>
+            <div class="res-info-row">
+              <span class="res-info-chip"><i class="bi bi-clock"></i> 8:00 AM – 2:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-headset"></i></div>
+          <div class="res-card-head-text"><h5>Botany Lab</h5><span class="res-tagline">Listening, speaking &amp; comprehension practice</span></div>
+          <span class="res-card-stat">20 Stations</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <div class="res-card-photos">
+              <img src="assets/images/.jpg" alt="Botany Lab">
+              <img src="assets/images/DSC_7025.JPG" alt="Botany Lab">
+              <img src="assets/images/DSC_7078.JPG" alt="Botany Lab">
+              <img src="assets/images/lab-botany.jpg" alt="Botany Lab">
+            </div>
+            <p>Audio-visual stations help students practice listening, speaking and comprehension skills for English and other language courses.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> Headset stations with listening software</li>
+              <li><i class="bi bi-check-circle-fill"></i> Recorded comprehension &amp; speaking drills</li>
+              <li><i class="bi bi-check-circle-fill"></i> Faculty-guided practice sessions</li>
+            </ul>
+            <div class="res-info-row">
+              <span class="res-info-chip"><i class="bi bi-clock"></i> 9:00 AM – 1:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BLOCKS -->
+    <div class="res-group" id="group-blocks">
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-building"></i></div>
+          <div class="res-card-head-text"><h5>Academic Block A — Sciences</h5><span class="res-tagline">Physics, Chemistry, Botany &amp; Zoology</span></div>
+          <span class="res-card-stat">Ground + 1</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <img class="res-card-photo" src="assets/images/DSC_7136.JPG" alt="Academic Block A — Sciences">
+            
+            
+            <p>Houses all science department classrooms and their attached laboratories, keeping theory and practical sessions close together.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> Physics, Chemistry, Botany &amp; Zoology classrooms</li>
+              <li><i class="bi bi-check-circle-fill"></i> Attached labs on the same floor</li>
+              <li><i class="bi bi-check-circle-fill"></i> Faculty staff rooms for each department</li>
+            </ul>
+            <div class="res-info-row"><span class="res-info-chip"><i class="bi bi-signpost-2"></i> Near Main Gate</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-building-fill"></i></div>
+          <div class="res-card-head-text"><h5>Academic Block B — Arts &amp; CS</h5><span class="res-tagline">Computer Science, English, Urdu, Sindhi</span></div>
+          <span class="res-card-stat">Ground + 1</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <img class="res-card-photo" src="assets/images/DSC_7139.JPG" alt="Academic Block A — Sciences">
+            <p>Home to the Computer Science, English and language departments, along with the main computer lab.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> CS, English, Urdu &amp; Sindhi classrooms</li>
+              <li><i class="bi bi-check-circle-fill"></i> Main Computer Science lab</li>
+              <li><i class="bi bi-check-circle-fill"></i> Pakistan Studies department</li>
+            </ul>
+            <div class="res-info-row"><span class="res-info-chip"><i class="bi bi-signpost-2"></i> Opposite Library</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-person-workspace"></i></div>
+          <div class="res-card-head-text"><h5>Admin Block</h5><span class="res-tagline">Principal office, admissions, exams &amp; accounts</span></div>
+          <span class="res-card-stat">Ground Floor</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <img class="res-card-photo" src="assets/images/DSC_7140.JPG" alt="Academic Block A — Sciences">
+            <p>Central office for all administrative matters — admissions, fee submission, exam cell and general correspondence.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> Principal &amp; vice-principal offices</li>
+              <li><i class="bi bi-check-circle-fill"></i> Admissions &amp; exam cell counters</li>
+              <li><i class="bi bi-check-circle-fill"></i> Accounts &amp; fee submission desk</li>
+            </ul>
+            <div class="res-info-row"><span class="res-info-chip"><i class="bi bi-clock"></i> 8:00 AM – 2:00 PM</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="res-card">
+        <div class="res-card-head">
+          <div class="res-card-icon"><i class="bi bi-trophy"></i></div>
+          <div class="res-card-head-text"><h5>Sports &amp; Activity Block</h5><span class="res-tagline">Indoor games, common room &amp; cafeteria</span></div>
+          <span class="res-card-stat">Open All Day</span>
+          <i class="bi bi-chevron-down res-card-chevron"></i>
+        </div>
+        <div class="res-card-body">
+          <div class="res-card-body-inner">
+            <img class="res-card-photo" src="assets/images/sports-activity-block.png" alt="Sports &amp; Activity Block">
+            <p>A recreational space for students between classes, with indoor games, a common room and a canteen/cafeteria.</p>
+            <ul class="res-feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> Table tennis, carrom &amp; indoor games</li>
+              <li><i class="bi bi-check-circle-fill"></i> Common room for student gatherings</li>
+              <li><i class="bi bi-check-circle-fill"></i> Cafeteria with snacks &amp; refreshments</li>
+            </ul>
+            <div class="res-info-row"><span class="res-info-chip"><i class="bi bi-clock"></i> 9:00 AM – 2:00 PM</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== ASSISTANT INTRO ===== -->
+<section class="section" id="non-teaching-staff">
+  <div class="container">
+    <div class="text-center">
+      <span class="eyebrow">Meet Our Team</span>
+      <h2 class="section-title">Non-Teaching Staff</h2>
+      <p class="section-sub mx-auto">Available throughout college hours to help students access books, equipment and lab facilities smoothly.</p>
+    </div>
+  <div class="assistant-card">
+    <div class="assistant-photo"><i class="bi bi-person-fill"><img src="assets/images/Madshabana.JPEG" alt="Shabana Soomro"></i></div>
+      <div>
+        <h4>Shabana Soomro </h4>
+        <div class="role">Additional Director Physical Education BPS -19</div>
+        <p class="msg">BS Physical Education  </p>
+        <div class="assistant-chips">
+          <span class="assistant-chip"><i class="bi bi-award"></i> 25+ Years Experience</span>
+          <span class="assistant-chip"><i class="bi bi-clock"></i> Available 9 AM – 2 PM</span>
+          <span class="assistant-chip"><i class="bi bi-geo-alt"></i> Office AD PE &amp; BlockA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="assistant-card">
+      <div class="assistant-photo"><i class="bi bi-person-fill"><img src="assets/images/chachar.jfif" alt="LIAQAT ALI CHACHAR"></i></div>
+        <div>
+          <h4>LIAQAT ALI CHACHAR </h4>
+          <div class="role">Librarian BPS -18</div>
+          <p class="msg">Highest Academic Qualification PG_DLIS (LIBRARY SCIENCE.) M.Ed.M.A (English )Specialization/Area of Expertise
+  LIBRARIAN Teaching Experience 14 years as a LIBARIAN Research Interest is Exploring in E Libraries and modernizing the library work. Publications/Research Work Articles on the history of libraries and their importance.
+  8. Awards, distinctions and other professional achievements ,Achieved an Award Certificate by the Regional Director for the "Best Librarian.
+          </p>
+          <div class="assistant-chips">
+            <span class="assistant-chip"><i class="bi bi-award"></i> 14+ Years Experience</span>
+            <span class="assistant-chip"><i class="bi bi-clock"></i> Available 9 AM – 2 PM</span>
+            <span class="assistant-chip"><i class="bi bi-geo-alt"></i> Library &amp; Science Block</span>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="container">
+    <div class="assistant-card">
+      <div class="assistant-photo"><i class="bi bi-person-fill"><img src="assets/images/WhatsApp Image 2026-09-15 at 11.02.03 AM.jpeg" alt=""></i></div>
+        <div>
+          <h4>Mansoor Ahmed Shaikh </h4>
+          <div class="role">Office Superintendent BPS -18</div>
+          <p class="msg">professional achievements ,Achieved an Award Certificate by the Regional Director .
+          </p>
+          <div class="assistant-chips">
+            <span class="assistant-chip"><i class="bi bi-award"></i> 14+ Years Experience</span>
+            <span class="assistant-chip"><i class="bi bi-clock"></i> Available 9 AM – 2 PM</span>
+            <span class="assistant-chip"><i class="bi bi-geo-alt"></i> Library &amp; Science Block</span>
+          </div>
+        </div>
+      </div>
+  </div>
+  
+</section>
+
+
+<div id="footer"></div>
+<script src="assets/js/chatbot-widget.js"></script>
+<script src="assets/js/load.js"></script>
+
+<script>
+const yearEl = document.getElementById("year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+/* ===== Hero Slider ===== */
+(function () {
+  const slides = document.querySelectorAll("#heroSlider .hero-slide");
+  const dotsWrap = document.getElementById("heroDots");
+  const progress = document.getElementById("heroProgress");
+  const DURATION = 4500;
+  let current = 0, timer, progressStart;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement("div");
+    dot.className = "hero-dot" + (i === 0 ? " active" : "");
+    dot.addEventListener("click", () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = dotsWrap.querySelectorAll(".hero-dot");
+
+  function render() {
+    slides.forEach((s, i) => s.classList.toggle("active", i === current));
+    dots.forEach((d, i) => d.classList.toggle("active", i === current));
+  }
+  function goTo(i) {
+    current = (i + slides.length) % slides.length;
+    render();
+    restartProgress();
+  }
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  function restartProgress() {
+    clearInterval(timer);
+    progress.style.transition = "none";
+    progress.style.width = "0%";
+    requestAnimationFrame(() => {
+      progress.style.transition = `width ${DURATION}ms linear`;
+      progress.style.width = "100%";
+    });
+    timer = setTimeout(next, DURATION);
+  }
+
+  document.getElementById("heroNext").addEventListener("click", next);
+  document.getElementById("heroPrev").addEventListener("click", prev);
+  document.getElementById("heroSlider").addEventListener("mouseenter", () => clearTimeout(timer));
+  document.getElementById("heroSlider").addEventListener("mouseleave", restartProgress);
+
+  render();
+  restartProgress();
+})();
+
+/* ===== Sports photos, pulled from the gallery table (category = Sports) ===== */
+(function () {
+  const grid = document.getElementById("sportsGalleryGrid");
+  if (!grid) return;
+
+  fetch("/api/gallery?category=Sports")
+    .then(res => {
+      if (!res.ok) throw new Error("Gallery request failed");
+      return res.json();
+    })
+    .then(items => {
+      if (!Array.isArray(items) || items.length === 0) {
+        grid.innerHTML = '<p class="sports-gallery-empty">No sports photos added yet.</p>';
+        return;
+      }
+      grid.innerHTML = items
+        .map(item => `<img src="${item.image}" alt="${(item.title || "Sports photo").replace(/"/g, "&quot;")}">`)
+        .join("");
+    })
+    .catch(err => {
+      console.error(err);
+      grid.innerHTML = '<p class="sports-gallery-empty">Could not load sports photos.</p>';
+    });
+})();
+
+/* ===== Resource tabs (Library / Labs / Blocks) ===== */
+document.getElementById("resTabs").addEventListener("click", e => {
+  const btn = e.target.closest(".res-tab-btn");
+  if (!btn) return;
+  document.querySelectorAll(".res-tab-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".res-group").forEach(g => g.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById("group-" + btn.dataset.group).classList.add("active");
+});
+
+/* ===== Expand-on-click resource cards (accordion within each group) ===== */
+document.querySelectorAll(".res-card-head").forEach(head => {
+  head.addEventListener("click", () => {
+    const card = head.closest(".res-card");
+    const body = card.querySelector(".res-card-body");
+    const group = card.closest(".res-group");
+    const isOpen = card.classList.contains("open");
+
+    group.querySelectorAll(".res-card.open").forEach(openCard => {
+      if (openCard !== card) {
+        openCard.classList.remove("open");
+        openCard.querySelector(".res-card-body").style.maxHeight = "0px";
+      }
+    });
+
+    if (isOpen) {
+      card.classList.remove("open");
+      body.style.maxHeight = "0px";
+    } else {
+      card.classList.add("open");
+      body.style.maxHeight = body.scrollHeight + "px";
+    }
+  });
+});
+
+/* ===== Deep-link a specific tab from the topbar menu =====
+   Links look like: resources.html#group-library, #group-sports, #group-labs, #group-blocks */
+function openTabFromHash() {
+  const hash = window.location.hash.replace("#", "");
+  if (!hash.startsWith("group-")) return;
+  const groupName = hash.replace("group-", "");
+  const btn = document.querySelector(`.res-tab-btn[data-group="${groupName}"]`);
+  const group = document.getElementById(hash);
+  if (!btn || !group) return;
+
+  document.querySelectorAll(".res-tab-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".res-group").forEach(g => g.classList.remove("active"));
+  btn.classList.add("active");
+  group.classList.add("active");
+
+  document.getElementById("resTabs").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+window.addEventListener("DOMContentLoaded", openTabFromHash);
+window.addEventListener("hashchange", openTabFromHash);
+
+/* ===== Local fallback: make sure the topbar loads even if load.js
+   is still pointing at the wrong filename elsewhere on the site.
+   This is scoped to this page only — it doesn't touch load.js. ===== */
+if (typeof loadHTML === "function") {
+  setTimeout(() => {
+    const topbarEl = document.getElementById("topbar");
+    if (topbarEl && topbarEl.innerHTML.trim() === "") {
+      loadHTML("header.html", "topbar");
+    }
+  }, 600);
+}
+
+/* ===== Quick-jump menu: works independently of the shared header ===== */
+document.querySelectorAll("#quickJump a").forEach(link => {
+  link.addEventListener("click", e => {
+    const target = link.dataset.jump;
+    document.querySelectorAll("#quickJump a").forEach(a => a.classList.remove("active"));
+    link.classList.add("active");
+
+    if (target === "non-teaching-staff") return; // plain scroll, default anchor behavior is fine
+
+    e.preventDefault();
+    history.pushState(null, "", "#" + target);
+    openTabFromHash();
+  });
+});
+</script>
+</body>
+</html>

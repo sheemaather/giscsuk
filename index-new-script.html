@@ -1,0 +1,93 @@
+<script>
+// ===== Department accordion (expand on click) =====
+document.querySelectorAll(".dept-row-main").forEach(main => {
+  main.addEventListener("click", () => {
+    main.closest(".dept-row").classList.toggle("open");
+  });
+});
+
+// ===== Programs tabs =====
+document.getElementById("programTabs").addEventListener("click", (e) => {
+  const btn = e.target.closest(".home-tab-btn");
+  if (!btn) return;
+  document.querySelectorAll("#programTabs .home-tab-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  const target = btn.dataset.program;
+  document.querySelectorAll(".program-panel").forEach(p => p.classList.toggle("active", p.dataset.panel === target));
+});
+
+// ===== News & Notices (fetched from news + notifications tables) =====
+let homeUpdates = [];
+let homeUpdateFilter = "all";
+
+function formatHomeDate(d) {
+  return new Date(d).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
+}
+
+function renderHomeUpdates() {
+  const container = document.getElementById("homeNews");
+  const items = homeUpdateFilter === "all" ? homeUpdates : homeUpdates.filter(i => i.type === homeUpdateFilter);
+  if (!items.length) {
+    container.innerHTML = `<div class="col-12"><div class="faculty-empty">Nothing here yet.</div></div>`;
+    return;
+  }
+  container.innerHTML = items.slice(0, 6).map(item => {
+    const important = item.type === "notice" && item.is_important;
+    return `
+      <div class="col-md-4">
+        <div class="home-update-card">
+          <span class="tag ${item.type === "notice" ? "notice" : ""} ${important ? "important" : ""}">
+            ${important ? "Important" : item.type === "notice" ? "Notice" : "News"}
+          </span>
+          <h5>${item.title}</h5>
+          <span class="date">${formatHomeDate(item.published_on)}</span>
+          <p>${(item.body || "").slice(0, 90)}${item.body && item.body.length > 90 ? "…" : ""}</p>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+document.getElementById("homeUpdateTabs").addEventListener("click", (e) => {
+  const btn = e.target.closest(".home-tab-btn");
+  if (!btn) return;
+  document.querySelectorAll("#homeUpdateTabs .home-tab-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  homeUpdateFilter = btn.dataset.type;
+  renderHomeUpdates();
+});
+
+(async () => {
+  try {
+    const [newsRes, noticesRes] = await Promise.all([fetch("/api/news"), fetch("/api/notifications")]);
+    const news = (await newsRes.json()).map(n => ({ ...n, type: "news" }));
+    const notices = (await noticesRes.json()).map(n => ({ ...n, type: "notice" }));
+    homeUpdates = [...news, ...notices].sort((a, b) => new Date(b.published_on) - new Date(a.published_on));
+    renderHomeUpdates();
+  } catch (err) {
+    console.error(err);
+    document.getElementById("homeNews").innerHTML = `<div class="col-12"><div class="faculty-empty">Could not load updates right now.</div></div>`;
+  }
+})();
+
+// ===== Gallery preview strip =====
+(async () => {
+  try {
+    const res = await fetch("/api/gallery");
+    const images = await res.json();
+    const strip = document.getElementById("homeGalleryStrip");
+    if (!images.length) {
+      strip.innerHTML = `<div class="faculty-empty">No photos yet.</div>`;
+      return;
+    }
+    strip.innerHTML = images.slice(0, 10).map(img => `
+      <div class="home-gallery-item">
+        <img src="${img.image}" alt="${img.title}">
+        <span>${img.title}</span>
+      </div>
+    `).join("");
+  } catch (err) {
+    console.error(err);
+    document.getElementById("homeGalleryStrip").innerHTML = `<div class="faculty-empty">Could not load gallery.</div>`;
+  }
+})();
+</script>

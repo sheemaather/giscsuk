@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Publications | Govt. Islamia Science College Sukkur</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/department.css" rel="stylesheet">
+  <link href="assets/css/publications.css" rel="stylesheet">
+  <link href="assets/css/chatbot.css" rel="stylesheet">
+</head> 
+
+<body>
+<!--<div data-include="partials/header.html"></div>
+<script src="assets/js/include-partials.js"></script>-->
+<div id="topbar"></div>
+<!-- ===== Page header ===== -->
+<section class="dept-header">
+  <div class="container">
+    <span class="eyebrow"><a href="index.html">Home</a>/<a href="about.html">About Us</a>/<a href="contact.html">Contact Us</a></span>
+    <h1>Publications</h1>
+    <p>Official notices, circulars and news from the college.</p>
+  </div>
+</section>
+
+<!-- ===== Quick links: Dresscode, Academic Calendar, etc. ===== -->
+<section class="section" style="padding-bottom:0">
+  <div class="container">
+    <div class="pub-quicklinks">
+      <a href="dresscode.html" class="pub-quicklink">
+        <div class="pub-quicklink-icon dresscode"><i class="bi bi-person-badge"></i></div>
+        <div class="pub-quicklink-text">
+          <strong>Dress Code</strong>
+          <span>College dress code guidelines</span>
+        </div>
+      </a>
+
+      <a href="assets/pub/DCEK Academic & Co-Curricular Calendar 2026-27.pdf" target="_blank" class="pub-quicklink">
+        <div class="pub-quicklink-icon calendar"><i class="bi bi-file-earmark-pdf"></i></div>
+        <div class="pub-quicklink-text">
+          <strong>Academic Calendar 2026–27</strong>
+          <span>Full academic &amp; co-curricular schedule (PDF)</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== News & Notices grid ===== -->
+<section class="section">
+  <div class="container">
+
+    <div class="pub-stats-line" id="pubStats"></div>
+
+    <div class="pub-filters" id="pubFilters">
+      <button class="pub-filter-btn active" data-type="all">All</button>
+      <button class="pub-filter-btn" data-type="notice">Notices</button>
+      <button class="pub-filter-btn" data-type="news">News</button>
+    </div>
+
+    <div class="row g-4" id="pubGrid">
+      <div class="col-12"><div class="pub-empty">Loading…</div></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="pub-lightbox" id="pubLightbox">
+  <button class="pub-lightbox-close" id="pubLightboxClose">&times;</button>
+  <img src="" alt="">
+</div>
+
+<footer>
+  <div class="container py-5">
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <img src="assets/images/logo.png" class="footer-logo">
+        <h5>Government Islamia Science College Sukkur</h5>
+        <p>Official publications, notices and news.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Explore</h6>
+        <a href="vision.html">Vision</a>
+        <a href="mission.html">Mission</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Updates</h6>
+        <a href="publications.html">Publications</a>
+        <a href="gallery.html">Gallery</a>
+      </div>
+      <div class="col-lg-3">
+        <h6>Student Services</h6>
+        <a href="resources.html">Resources</a>
+        <a href="dresscode.html">Dress Code</a>
+      </div>
+    </div>
+    <hr>
+    <small>&copy; <span id="year"></span> Government Islamia Science College Sukkur. All rights reserved.</small>
+  </div>
+</footer>*/
+<script src="assets/js/load.js"></script>
+<script src="assets/js/chatbot-widget.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const NEW_WINDOW_DAYS = 3; // items published within this many days get the pulsing "NEW" badge
+let allItems = [];
+let activeFilter = "all";
+
+const grid = document.getElementById("pubGrid");
+
+function isNew(dateStr) {
+  const published = new Date(dateStr);
+  const diffDays = (Date.now() - published.getTime()) / (1000 * 60 * 60 * 24);
+  return diffDays <= NEW_WINDOW_DAYS;
+}
+
+function formatDate(dateStr) {
+  return new Date(dateStr).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
+}
+
+function timeAgo(dateStr) {
+  if (!dateStr) return "never";
+  const diffMs = Date.now() - new Date(dateStr).getTime();
+  const mins = Math.floor(diffMs / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins} min${mins === 1 ? "" : "s"} ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+  const days = Math.floor(hours / 24);
+  return `${days} day${days === 1 ? "" : "s"} ago`;
+}
+
+function cardFor(item) {
+  const isImportant = item.type === "notice" && item.is_important;
+  const badge = isNew(item.published_on)
+    ? `<div class="pub-new-badge ${isImportant ? "important" : ""}"><span class="pulse-dot"></span>${isImportant ? "IMPORTANT" : "NEW"}</div>`
+    : isImportant
+      ? `<div class="pub-new-badge important">IMPORTANT</div>`
+      : "";
+
+  let mediaHtml = "";
+  if (item.type === "news" && item.image) {
+    mediaHtml = `<div class="pub-thumb" onclick="openLightbox('${item.image}')"><img src="${item.image}" alt="${item.title}"></div>`;
+  } else if (item.type === "notice") {
+    mediaHtml = `<div class="pub-notice-icon"><i class="bi bi-megaphone"></i><span>Notice</span></div>`;
+  }
+
+  const typeLabel = item.type === "news" ? "News" : "Notice";
+  const openLink = item.type === "news" && item.image
+    ? `<a class="pub-open" href="#" onclick="openLightbox('${item.image}');return false;">View Full Image <i class="bi bi-arrows-fullscreen"></i></a>`
+    : "";
+
+  return `
+    <div class="col-md-4 pub-item" data-type="${item.type}">
+      <div class="pub-card">
+        ${badge}
+        ${mediaHtml}
+        <div class="pub-body">
+          <span class="pub-type-tag type-${item.type} ${isImportant ? "important" : ""}">${typeLabel}</span>
+          <h5>${item.title}</h5>
+          <span class="pub-date">${formatDate(item.published_on)}</span>
+          ${item.body ? `<p>${item.body}</p>` : ""}
+          ${openLink}
+        </div>
+      </div>
+    </div>`;
+}
+
+function render() {
+  const items = activeFilter === "all" ? allItems : allItems.filter(i => i.type === activeFilter);
+  if (!items.length) {
+    grid.innerHTML = `<div class="col-12"><div class="pub-empty">Nothing in this category yet.</div></div>`;
+    return;
+  }
+  grid.innerHTML = items.map(cardFor).join("");
+}
+
+document.getElementById("pubFilters").addEventListener("click", (e) => {
+  const btn = e.target.closest(".pub-filter-btn");
+  if (!btn) return;
+  document.querySelectorAll(".pub-filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  activeFilter = btn.dataset.type;
+  render();
+});
+
+function openLightbox(src) {
+  const lb = document.getElementById("pubLightbox");
+  lb.querySelector("img").src = src;
+  lb.classList.add("open");
+}
+document.getElementById("pubLightboxClose").addEventListener("click", () => document.getElementById("pubLightbox").classList.remove("open"));
+document.getElementById("pubLightbox").addEventListener("click", (e) => { if (e.target.id === "pubLightbox") e.target.classList.remove("open"); });
+
+(async () => {
+  try {
+    const [newsRes, noticesRes] = await Promise.all([
+      fetch("/api/news"),
+      fetch("/api/notifications")
+    ]);
+    const news = (await newsRes.json()).map(n => ({ ...n, type: "news" }));
+    const notices = (await noticesRes.json()).map(n => ({ ...n, type: "notice" }));
+
+    allItems = [...news, ...notices].sort(
+      (a, b) => new Date(b.published_on) - new Date(a.published_on)
+    );
+    render();
+  } catch (err) {
+    console.error(err);
+    grid.innerHTML = `<div class="col-12"><div class="pub-empty">Could not load publications right now.</div></div>`;
+  }
+})();
+
+(async () => {
+  try {
+    const res = await fetch("/api/news/stats");
+    const stats = await res.json();
+    document.getElementById("pubStats").innerHTML =
+      `<span><strong>${stats.total_count ?? 0}</strong> news items</span>` +
+      `<span class="dot">•</span>` +
+      `<span>Last updated ${timeAgo(stats.last_updated)}</span>`;
+  } catch (err) {
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

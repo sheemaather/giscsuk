@@ -1,0 +1,42 @@
+/* ===== Hero slider — complete, self-contained rules ===== */
+.hero{position:relative;height:74vh;min-height:570px;overflow:hidden;background:#0b1e33}
+.hero-slider{position:absolute;inset:0}
+
+.hero-slide{
+  position:absolute;inset:0;
+  opacity:0;visibility:hidden;
+  transition:opacity .8s ease;
+  display:flex;align-items:center;
+}
+.hero-slide.active{opacity:1;visibility:visible;z-index:1}
+
+/* Images AND video fill the slide identically */
+.hero-slide img,
+.hero-slide video{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  z-index:0;
+}
+
+/* Dark gradient so text stays readable over both photos and video */
+.hero-slide::before{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(5,15,25,.55) 0%,rgba(5,15,25,.35) 50%,rgba(5,15,25,.15) 100%);
+  z-index:1;
+}
+
+.hero-content{
+  position:relative;z-index:2;color:#fff;
+}
+.hero-content h1{color:#fff}
+.hero-content p{color:#eaf1fa}
+
+.hero-controls{position:absolute;right:5%;bottom:38px;z-index:3;display:flex;gap:8px}
+.hero-controls button{width:42px;height:42px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.12);border-radius:50%;color:#fff}
+.hero-controls button:hover{background:rgba(255,255,255,.25)}
+
+.hero-dots{position:absolute;bottom:52px;left:5%;z-index:3;display:flex;gap:7px}
+.hero-dot{width:8px;height:8px;border:0;border-radius:10px;background:rgba(255,255,255,.5)}
+.hero-dot.active{width:26px;background:#fff}

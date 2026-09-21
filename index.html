@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Computer Science | Govt. Islamia Science College Sukkur</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/chatbot.css" rel="stylesheet">
+  <link href="assets/css/hero-slider.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #f2f5f9;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    /* keep original topbar, hero, footer etc – we only overwrite nav */
+    .topbar {
+      background: #0b1e33;
+      color: #cddcec;
+      font-size: 0.85rem;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid #1f3a55;
+    }
+    .topbar i { margin-right: 6px; color: #7ea6d0; }
+
+    /* ----- main navigation (clean, hover-driven) ----- */
+    .navbar-custom {
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      border-bottom: 1px solid #eef2f6;
+      padding: 0.2rem 0;
+    }
+    .navbar-custom .container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: #0b1e33;
+    }
+    .brand-wrap img {
+      height: 42px;
+      width: auto;
+    }
+    .brand-wrap .brand-text {
+      line-height: 1.2;
+    }
+    .brand-wrap .brand-text strong {
+      font-size: 0.9rem;
+      display: block;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .brand-wrap .brand-text small {
+      font-size: 0.7rem;
+      color: #3f5e7a;
+      font-weight: 500;
+    }
+
+    /* navigation list – flex, clean */
+    .nav-hover {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.3rem 1rem;
+      list-style: none;
+      margin: 0;
+      padding: 0.4rem 0;
+    }
+    .nav-hover > li {
+      position: relative;
+      padding: 0.4rem 0;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #1a2639;
+      cursor: default;
+      transition: color 0.15s;
+      letter-spacing: -0.01em;
+    }
+    .nav-hover > li > a {
+      text-decoration: none;
+      color: inherit;
+      padding: 0.3rem 0.1rem;
+      display: inline-block;
+    }
+    .nav-hover > li:hover {
+      color: #0a58a0;
+    }
+
+    /* dropdown panel – same elegant style */
+    .mega-drop {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 210px;
+      background: white;
+      border-radius: 1.2rem;
+      padding: 1.2rem 1.2rem 0.8rem 1.2rem;
+      box-shadow: 0 18px 36px -8px rgba(0, 20, 30, 0.15), 0 0 0 1px rgba(0,0,0,0.02);
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(6px) scale(0.98);
+      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1), visibility 0.2s;
+      pointer-events: none;
+      z-index: 9999;
+      border: 1px solid #e6edf4;
+    }
+    .nav-hover > li:hover .mega-drop {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(4px) scale(1);
+      pointer-events: auto;
+    }
+    .hero-slide video{
+      width:100%;height:100%;object-fit:cover;
+      position:absolute;inset:0;z-index: 0;
+    }
+    
+    
+    
+    /* dropdown items */
+    .drop-item {
+      padding: 0.3rem 0.2rem 0.3rem 0;
+      font-size: 0.9rem;
+      color: #1e2a3a;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background 0.2s, padding-left 0.2s;
+      border-radius: 6px;
+      padding-left: 0.2rem;
+      cursor: default;
+      text-decoration: none;
+      color: #1a2639;
+    }
+    .drop-item:hover {
+      background: #f0f5fd;
+      padding-left: 0.6rem;
+      color: #0a4a7a;
+    }
+    .drop-item .bullet {
+      opacity: 0.5;
+      font-size: 1.2rem;
+      line-height: 1;
+      color: #2c6b9e;
+    }
+    .drop-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.2rem 1rem;
+    }
+    @media (max-width: 700px) {
+      .drop-grid { grid-template-columns: 1fr; }
+      .nav-hover { gap: 0.2rem 0.6rem; }
+    }
+
+    /* special: right align last item (Publications) */
+    .nav-hover > li:last-child .mega-drop {
+      left: auto;
+      right: 0;
+    }
+    /* no drop for Publications – but we keep it consistent */
+    .nav-hover > li.publication-only .mega-drop {
+      display: none;
+    }
+    .nav-hover > li.publication-only:hover .mega-drop {
+      display: none;
+    }
+
+    /* preserve original layout: the rest is unchanged */
+    /* .hero original styles preserved elsewhere */
+    .quick-strip { background: #b9cfed; padding: 0.2rem 0; }
+    /* all other sections keep original */
+    .section { padding: 1.0rem 0; }
+    .soft { background: #f8faff; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .stat-grid div { background: white; padding: 1.2rem; border-radius: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02); text-align: center; }
+    .stat-grid strong { display: block; font-size: 2rem; font-weight: 700; color: #0b2a44; }
+    .stat-grid span { color: #3d5f7a; font-size: 0.85rem; }
+      
+      footer { background: #0b1e33; color: #b8cee3; }
+      footer a { color: #c6d9ec; text-decoration: none; display: block; padding: 0.15rem 0; }
+      footer a:hover { color: white; }
+      footer .footer-logo { height: 44px; }
+      hr { border-color: #284b68; }
+    /* ----- program sections (ADS / BS Zoology / HSC) reuse the BSCS stat-grid look ----- */
+      .prog-eyebrow-row { display:flex; align-items:center; gap:.6rem; margin-bottom:.4rem; }
+      .prog-icon { width:44px; height:44px; border-radius:.9rem; background:#eaf1fa; color:#0a58a0; display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+
+      .prog-card { border-radius:1.8rem; padding:1.6rem clamp(1.2rem,4vw,3.2rem); }
+      .prog-bscs, .prog-ads, .prog-zoology, .prog-hsc { background:#93b6e5; }
+
+      /* ----- resources overview ----- */
+      .res-stat-card {
+        background:white; border-radius:1.2rem; padding:1.6rem 1.3rem; height:100%;
+        box-shadow:0 2px 8px rgba(0,0,0,0.03); text-align:center; transition:transform .2s ease, box-shadow .2s ease;
+      }
+      .res-stat-card:hover { transform:translateY(-5px); box-shadow:0 14px 30px rgba(20,50,75,.09); }
+      .res-stat-icon {
+        width:56px; height:56px; margin:0 auto .8rem; border-radius:1rem; background:#eaf1fa; color:#0a58a0;
+        display:flex; align-items:center; justify-content:center; font-size:1.5rem;
+      }
+      .res-stat-card strong { display:block; font-size:1.8rem; font-weight:800; color:#0b2a44; }
+      .res-stat-card span { color:#4b6478; font-size:.85rem; }
+
+      /* ----- gallery preview ----- */
+      .gallery-tile {
+        position:relative; border-radius:1.2rem; overflow:hidden; height:220px; display:block;
+        box-shadow:0 2px 8px rgba(0,0,0,0.05);
+      }
+      .gallery-tile img { width:100%; height:100%; object-fit:cover; transition:transform .4s ease; }
+      .gallery-tile:hover img { transform:scale(1.08); }
+      .gallery-tile.more-tile {
+        background:linear-gradient(135deg,#123a5c,#0b2941); display:flex; flex-direction:column;
+        align-items:center; justify-content:center; color:#fff; text-decoration:none; text-align:center; gap:.4rem;
+      }
+      .gallery-tile.more-tile i { font-size:1.8rem; color:#9fd0f5; }
+      .gallery-tile.more-tile strong { font-size:1.2rem; }
+      .gallery-tile.more-tile span { color:#cfe0f2; font-size:.85rem; }
+
+      .section-heading { display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:1.8rem; }
+      .section-heading .eyebrow { color:#0a58a0; font-weight:800; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; }
+      .section-heading h2 { color:#0b2a44; font-weight:800; font-size:clamp(1.4rem,2.6vw,1.9rem); margin:.25rem 0 0; }
+      .section-heading a { color:#0a58a0; font-weight:700; text-decoration:none; font-size:.92rem; }
+      .section-heading a:hover { text-decoration:underline; }
+  </style>
+         
+</head>
+<body>
+  <div id="topbar"></div> 
+  <section class="hero">
+    <div class="hero-slider">
+      <div class="hero-slide">
+        <video autoplay muted loop playsinline >
+        <source src="assets/images/collegetour (1).mp4" type="video/mp4">  </video>
+      </div>
+      <!-- video slide -->
+      <div class="hero-slide">
+        <video autoplay muted loop playsinline >
+        <source src="assets/images/collegetour (1).mp4" type="video/mp4">  </video>
+      </div>
+      <div class="container hero-content">
+        <h1>Building the Future, One Student at a Time</h1>
+        <p>Modern labs, dedicated faculty, and a campus that inspires excellence.</p>
+      </div>
+    </div>
+  </div>  
+    <div class="hero-controls"><button id="prev"><i class="bi bi-chevron-left"></i></button><button id="next"><i class="bi bi-chevron-right"></i></button></div>
+    <div class="hero-dots" id="dots"></div>
+  </section>
+
+  <section class="quick-strip"><div class="container"><div class="row g-3">
+  <div class="col-md-3"><a href="Resources.html"><i class="bi bi-journal-code"></i><span>Resources</span></a></div>
+  <div class="col-md-3"><a href="publications.html"><i class="bi bi-calendar3"></i><span>News</span></a></div>
+  <div class="col-md-3"><a href="publications.html"><i class="bi bi-megaphone"></i><span>Notifications</span></a></div>
+  <div class="col-md-3"><a href="admissions.html"><i class="bi-file-earmark-person"></i><span>Admissions</span></a></div>
+  </div></div></section>
+
+  <section class="section"><div class="container">
+ <div class="section-heading"><div><span class="eyebrow">DEPARTMENT UPDATES</span><h2>Latest News & Notices</h2></div><a href="publications.html">View all <i class="bi bi-arrow-right"></i></a></div>
+ <div class="row g-4" id="homeNews"></div>
+  </div></section>
+
+  <section class="section soft"><div class="container">
+  <div class="prog-card prog-bscs"><div class="row align-items-center g-5"><div class="col-lg-6"><span class="eyebrow">BS COMPUTER SCIENCE</span><h2>Four years of focused computing education.</h2><p>Students progress through eight semesters covering programming, data structures, databases, networks, AI, software engineering, security, data science and a final year project.</p><a href="BSCS.html" class="btn btn-dark rounded-pill">Explore the Program</a></div>
+  <div class="col-lg-6"><div class="stat-grid"><div><strong>08</strong><span>Semesters</span></div><div><strong>04</strong><span>Years</span></div><div><strong>30+</strong><span>Core & Elective Courses</span></div><div><strong>01</strong><span>Final Year Project</span></div></div></div></div></div>
+  </div></section>
+
+  <section class="section"><div class="container">
+  <div class="prog-card prog-ads"><div class="row align-items-center g-5">
+  <div class="col-lg-6"><span class="eyebrow">ASSOCIATE DEGREE IN SCIENCE</span><h2>A fast-track path into higher education.</h2><p>The ADS program covers four semesters of foundational science and computing courses, preparing students for direct entry into a BS program or the job market with a recognized associate-level qualification.</p><a href="ADS.html" class="btn btn-dark rounded-pill">Explore the Program</a></div>
+  <div class="col-lg-6"><div class="stat-grid"><div><strong>04</strong><span>Semesters</span></div><div><strong>02</strong><span>Years</span></div><div><strong>20+</strong><span>Core & Elective Courses</span></div><div><strong>1</strong><span>Direct Path to BS</span></div></div></div>
+  </div></div></div></section>
+
+  <section class="section soft"><div class="container">
+  <div class="prog-card prog-zoology"><div class="row align-items-center g-5">
+  <div class="col-lg-6"><span class="eyebrow">BS ZOOLOGY</span><h2>Four years of hands-on life sciences education.</h2><p>Students explore animal biology, physiology, genetics, ecology and conservation across eight semesters, combining classroom learning with lab work and fieldwork in a dedicated Zoology lab.</p><a href="BSZoology.html" class="btn btn-dark rounded-pill">Explore the Program</a></div>
+  <div class="col-lg-6"><div class="stat-grid"><div><strong>08</strong><span>Semesters</span></div><div><strong>04</strong><span>Years</span></div><div><strong>25+</strong><span>Core & Elective Courses</span></div><div><strong>01</strong><span>Dedicated Zoology Lab</span></div></div></div>
+  </div></div></div></section>
+
+  <section class="section"><div class="container">
+  <div class="prog-card prog-hsc"><div class="row align-items-center g-5">
+  <div class="col-lg-6"><span class="eyebrow">HSC (INTERMEDIATE)</span><h2>Building the foundation for every future path.</h2><p>Higher Secondary students choose from Pre-Medical, Pre-Engineering or Computer Science groups across two years, building the core science foundation needed for university admissions.</p><a href="HSC.html" class="btn btn-dark rounded-pill">Explore the Program</a></div>
+  <div class="col-lg-6"><div class="stat-grid"><div><strong>02</strong><span>Years</span></div><div><strong>3</strong><span>Groups Offered</span></div><div><strong>15+</strong><span>Subjects</span></div><div><strong>1</strong><span>Board Certification</span></div></div></div>
+  </div></div></div></section>
+
+  <section class="section soft"><div class="container">
+  <div class="section-heading">
+    <div><span class="eyebrow">CAMPUS RESOURCES</span><h2>Built for Learning, Inside and Out</h2></div>
+    <a href="resources.html">Explore all facilities <i class="bi bi-arrow-right"></i></a>
+  </div>
+  <div class="row g-3">
+    <div class="col-6 col-md-3"><div class="res-stat-card"><div class="res-stat-icon"><i class="bi bi-flask"></i></div><strong>8+</strong><span>Science &amp; Computer Labs</span></div></div>
+    <div class="col-6 col-md-3"><div class="res-stat-card"><div class="res-stat-icon"><i class="bi bi-book"></i></div><strong>1</strong><span>Central Library, 20,000+ Books</span></div></div>
+    <div class="col-6 col-md-3"><div class="res-stat-card"><div class="res-stat-icon"><i class="bi bi-trophy"></i></div><strong>3</strong><span>Sports Grounds &amp; Facilities</span></div></div>
+    <div class="col-6 col-md-3"><div class="res-stat-card"><div class="res-stat-icon"><i class="bi bi-wifi"></i></div><strong>100%</strong><span>Wi-Fi Enabled Campus</span></div></div>
+  </div>
+  </div></section>
+
+  <section class="section"><div class="container">
+  <div class="section-heading">
+    <div><span class="eyebrow">CAMPUS LIFE</span><h2>Gallery</h2></div>
+    <a href="gallery.html">More <i class="bi bi-arrow-right"></i></a>
+  </div>
+  <div class="row g-3">
+    <div class="col-6 col-md-3"><a href="gallery.html" class="gallery-tile"><img src="assets/images/Assgrnd2.jpg" alt="Campus grounds"></a></div>
+    <div class="col-6 col-md-3"><a href="gallery.html" class="gallery-tile"><img src="assets/images/sports1.jpg" alt="Football team"></a></div>
+    <div class="col-6 col-md-3"><a href="gallery.html" class="gallery-tile"><img src="assets/images/DSC_7006.JPG" alt="ADS students"></a></div>
+    <div class="col-6 col-md-3"><a href="gallery.html" class="gallery-tile more-tile"><i class="bi bi-images"></i><strong>+24 Photos</strong><span>View Full Gallery</span></a></div>
+  </div>
+  </div></section>
+
+  <div id="footer"></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script src="assets/js/main.js"></script>
+  <script src="assets/js/chatbot-widget.js"></script>
+  <script src="assets/js/load.js"></script>
+</body>
+</html>

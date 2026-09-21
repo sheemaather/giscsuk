@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Gallery | Govt. Islamia Science College Sukkur</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/department.css" rel="stylesheet">
+  <link href="assets/css/gallery.css" rel="stylesheet">
+</head>
+
+<body>
+<div data-include="partials/header.html"></div>
+<script src="assets/js/include-partials.js"></script>
+
+<!-- ===== Page header ===== -->
+<section class="dept-header">
+  <div class="container">
+    <span class="eyebrow">GOVT. ISLAMIA SCIENCE COLLEGE SUKKUR</span>
+    <h1>Gallery</h1>
+    <p>Moments from campus life — events, achievements and everyday college life.</p>
+  </div>
+</section>
+
+<!-- ===== Filters + masonry grid ===== -->
+<section class="section">
+  <div class="container">
+    <div class="gal-filters" id="galFilters">
+      <button class="gal-filter-btn active" data-category="all">All</button>
+      <!-- other category buttons are added automatically once images load -->
+    </div>
+
+    <div class="gal-masonry" id="galGrid">
+      <div class="gal-empty">Loading gallery…</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Lightbox ===== -->
+<div class="gal-lightbox" id="galLightbox">
+  <button class="gal-nav-btn gal-nav-prev" id="galPrev"><i class="bi bi-chevron-left"></i></button>
+  <div class="gal-lightbox-inner">
+    <button class="gal-lightbox-close" id="galClose">&times;</button>
+    <img src="" alt="">
+    <div class="gal-lightbox-caption">
+      <span class="gal-cat"></span>
+      <h6></h6>
+    </div>
+  </div>
+  <button class="gal-nav-btn gal-nav-next" id="galNext"><i class="bi bi-chevron-right"></i></button>
+</div>
+
+<footer>
+  <div class="container py-5">
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <img src="assets/images/logo.png" class="footer-logo">
+        <h5>Government Islamia Science College Sukkur</h5>
+        <p>Campus life, events and achievements.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Explore</h6>
+        <a href="Mission.html">Mission</a>
+        <a href="vision.html">Vision</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Updates</h6>
+        <a href="publications.html">News &amp; Notices</a>
+        <a href="gallery.html">Gallery</a>
+      </div>
+      <div class="col-lg-3">
+        <h6>Student Services</h6>
+        <a href="BSZoology.html">BS Zoology</a>
+        <a href="resources.html">Resources</a>
+      </div>
+    </div>
+    <hr>
+    <small>&copy; <span id="year"></span> Government Islamia Science College Sukkur. All rights reserved.</small>
+  </div>
+</footer>
+<script src="assets/js/load.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+let allImages = [];
+let currentIndex = 0;
+let activeCategory = "all";
+
+const grid = document.getElementById("galGrid");
+const filtersBar = document.getElementById("galFilters");
+const lightbox = document.getElementById("galLightbox");
+const lightboxImg = lightbox.querySelector("img");
+const lightboxCat = lightbox.querySelector(".gal-cat");
+const lightboxTitle = lightbox.querySelector("h6");
+
+function itemsForCurrentFilter() {
+  return activeCategory === "all" ? allImages : allImages.filter(i => i.category === activeCategory);
+}
+
+function renderGrid() {
+  const items = itemsForCurrentFilter();
+  if (!items.length) {
+    grid.innerHTML = `<div class="gal-empty">No images in this category yet.</div>`;
+    return;
+  }
+
+  grid.innerHTML = items.map((item, i) => `
+    <div class="gal-item" data-index="${i}">
+      <img src="${item.image}" alt="${item.title}" loading="lazy">
+      <div class="gal-expand-icon"><i class="bi bi-arrows-fullscreen"></i></div>
+      <div class="gal-overlay">
+        <span class="gal-cat">${item.category}</span>
+        <h6>${item.title}</h6>
+      </div>
+    </div>
+  `).join("");
+
+  grid.querySelectorAll(".gal-item").forEach(el => {
+    el.addEventListener("click", () => openLightbox(parseInt(el.dataset.index, 10)));
+  });
+
+  observeFadeIn();
+}
+
+function renderFilters() {
+  const categories = [...new Set(allImages.map(i => i.category))];
+  filtersBar.innerHTML = `<button class="gal-filter-btn ${activeCategory === "all" ? "active" : ""}" data-category="all">All</button>` +
+    categories.map(cat => `<button class="gal-filter-btn ${activeCategory === cat ? "active" : ""}" data-category="${cat}">${cat}</button>`).join("");
+}
+
+filtersBar.addEventListener("click", (e) => {
+  const btn = e.target.closest(".gal-filter-btn");
+  if (!btn) return;
+  activeCategory = btn.dataset.category;
+  renderFilters();
+  renderGrid();
+});
+
+function observeFadeIn() {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll(".gal-item:not(.in-view)").forEach(el => io.observe(el));
+}
+
+function openLightbox(index) {
+  currentIndex = index;
+  showCurrent();
+  lightbox.classList.add("open");
+}
+
+function showCurrent() {
+  const items = itemsForCurrentFilter();
+  const item = items[currentIndex];
+  if (!item) return;
+  lightboxImg.src = item.image;
+  lightboxImg.alt = item.title;
+  lightboxCat.textContent = item.category;
+  lightboxTitle.textContent = item.title;
+}
+
+function closeLightbox() { lightbox.classList.remove("open"); }
+
+document.getElementById("galClose").addEventListener("click", closeLightbox);
+lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
+
+document.getElementById("galPrev").addEventListener("click", () => {
+  const items = itemsForCurrentFilter();
+  currentIndex = (currentIndex - 1 + items.length) % items.length;
+  showCurrent();
+});
+document.getElementById("galNext").addEventListener("click", () => {
+  const items = itemsForCurrentFilter();
+  currentIndex = (currentIndex + 1) % items.length;
+  showCurrent();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (!lightbox.classList.contains("open")) return;
+  if (e.key === "Escape") closeLightbox();
+  if (e.key === "ArrowLeft") document.getElementById("galPrev").click();
+  if (e.key === "ArrowRight") document.getElementById("galNext").click();
+});
+
+(async () => {
+  try {
+    const res = await fetch("/api/gallery");
+    if (!res.ok) throw new Error("Request failed");
+    allImages = await res.json();
+    renderFilters();
+    renderGrid();
+  } catch (err) {
+    console.error(err);
+    grid.innerHTML = `<div class="gal-empty">Could not load the gallery right now.</div>`;
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "gisc-computer-science-portal",
+  "version": "1.0.0",
+  "description": "Government Islamia Science College Sukkur - Computer Science Department web portal",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "mysql2": "^3.14.3",
+    "pdf-parse": "^2.4.5"
+  }
+}

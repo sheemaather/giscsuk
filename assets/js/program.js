@@ -1,0 +1,2 @@
+const labels=["Foundation of Computing","Programming & Digital Systems","Systems, Data & Software","Algorithms & Intelligent Systems","Advanced Computing","Applied AI & Data","Project Preparation","Final Project & Professional Practice"];
+document.getElementById("semesterTimeline").innerHTML=labels.map((x,i)=>`<div class="timeline-item"><div class="timeline-no">${i+1}</div><div><h5>Semester ${i+1}</h5><p>${x}</p><a href="subjects.html?semester=${i+1}">View subjects →</a></div></div>`).join("");

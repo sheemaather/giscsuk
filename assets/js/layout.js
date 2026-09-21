@@ -1,0 +1,9 @@
+document.getElementById("navMount").innerHTML = `
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm"><div class="container">
+<a class="navbar-brand d-flex align-items-center gap-2" href="index.html"><img src="assets/images/logo.png"><span><b>GISC</b><small>Computer Science</small></span></a>
+<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+<div id="nav" class="collapse navbar-collapse"><ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+<li><a class="nav-link" href="index.html">Home</a></li><li><a class="nav-link" href="program.html">BSCS Program</a></li><li><a class="nav-link" href="subjects.html">Subjects</a></li><li><a class="nav-link" href="timetable.html">Timetable</a></li><li><a class="nav-link" href="news.html">News</a></li><li><a class="nav-link" href="notifications.html">Notices</a></li><li><a class="nav-link" href="gallery.html">Gallery</a></li><li><a class="btn btn-primary rounded-pill px-3 ms-lg-2" href="attendance.html">Attendance</a></li>
+</ul></div></div></nav>`;
+document.getElementById("footerMount").innerHTML = `<footer><div class="container py-5"><div class="row"><div class="col-lg-6"><img src="assets/images/logo.png" class="footer-logo"><h5>Government Islamia Science College Sukkur</h5><p>Department of Computer Science — BSCS Academic Portal.</p></div><div class="col-lg-6"><h6>Student Services</h6><a href="attendance.html">Attendance</a><a href="admin/login.html">Admin Login</a></div></div><hr><small>© ${new Date().getFullYear()} GISC Computer Science Department.</small></div></footer>`;
+const bs=document.createElement("script"); bs.src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"; document.body.appendChild(bs);

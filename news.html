@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>News | Govt. Islamia Science College Sukkur</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/department.css" rel="stylesheet">
+  <link href="assets/css/updates.css" rel="stylesheet">
+  <link href="assets/css/chatbot.css" rel="stylesheet">
+</head>
+<body>
+<div id="topbar"></div>
+
+<section class="dept-header">
+  <div class="container">
+    <span class="eyebrow">
+      <a href="index.html">Home</a> /
+      <a href="publications.html">Updates &amp; Media</a> /
+      News
+    </span>
+    <h1>College News</h1>
+    <p>Latest news, activities, achievements and events from Government Islamia Science College Sukkur.</p>
+  </div>
+</section>
+
+<main class="updates-page">
+  <div class="container">
+
+    <section class="updates-hero news-hero">
+      <div>
+        <span class="updates-kicker"><i class="bi bi-newspaper"></i> OFFICIAL NEWS</span>
+        <h2>What's happening at GISC?</h2>
+        <p>Stay informed about college activities, academic events, achievements and important developments.</p>
+      </div>
+      <div class="updates-hero-icon"><i class="bi bi-megaphone"></i></div>
+    </section>
+
+    <section class="updates-toolbar">
+      <div class="updates-count" id="newsCount">Loading news...</div>
+      <div class="updates-search">
+        <i class="bi bi-search"></i>
+        <input id="newsSearch" type="search" placeholder="Search news..." aria-label="Search news">
+      </div>
+    </section>
+
+    <section id="newsGrid" class="row g-4">
+      <div class="col-12">
+        <div class="updates-state"><div class="spinner-border"></div><p>Loading news...</p></div>
+      </div>
+    </section>
+
+    <div id="newsEmpty" class="updates-state d-none">
+      <i class="bi bi-search"></i>
+      <h3>No news found</h3>
+      <p>Try another search term.</p>
+    </div>
+  </div>
+</main>
+
+<div class="updates-modal" id="newsModal" aria-hidden="true">
+  <div class="updates-modal-dialog">
+    <button class="updates-modal-close" id="newsModalClose" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+    <div id="newsModalMedia"></div>
+    <div class="updates-modal-body">
+      <span class="update-tag news-tag"><i class="bi bi-newspaper"></i> News</span>
+      <h2 id="newsModalTitle"></h2>
+      <div class="update-date" id="newsModalDate"></div>
+      <div class="updates-modal-content" id="newsModalBody"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container py-5">
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <img src="assets/images/logo.png" class="footer-logo" alt="GISC logo">
+        <h5>Government Islamia Science College Sukkur</h5>
+        <p>Official college news and updates.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Explore</h6>
+        <a href="vision.html">Vision</a>
+        <a href="mission.html">Mission</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Updates</h6>
+        <a href="news.html">News</a>
+        <a href="notices.html">Notices</a>
+        <a href="gallery.html">Gallery</a>
+      </div>
+      <div class="col-lg-3">
+        <h6>Student Services</h6>
+        <a href="resources.html">Resources</a>
+        <a href="dresscode.html">Dress Code</a>
+      </div>
+    </div>
+    <hr>
+    <small>&copy; <span id="year"></span> Government Islamia Science College Sukkur. All rights reserved.</small>
+  </div>
+</footer>
+
+<script src="assets/js/load.js"></script>
+<script src="assets/js/chatbot-widget.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const state = { items: [], filtered: [] };
+const grid = document.getElementById("newsGrid");
+const search = document.getElementById("newsSearch");
+const empty = document.getElementById("newsEmpty");
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[c]));
+}
+
+function formatDate(value) {
+  if (!value) return "Date not available";
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? value : d.toLocaleDateString(undefined, {
+    day:"numeric", month:"long", year:"numeric"
+  });
+}
+
+function excerpt(text, max = 180) {
+  const clean = String(text ?? "").replace(/\s+/g, " ").trim();
+  return clean.length > max ? clean.slice(0, max).trim() + "…" : clean;
+}
+
+function render() {
+  const q = search.value.trim().toLowerCase();
+  state.filtered = state.items.filter(n =>
+    !q ||
+    String(n.title ?? "").toLowerCase().includes(q) ||
+    String(n.body ?? "").toLowerCase().includes(q)
+  );
+
+  document.getElementById("newsCount").textContent =
+    `${state.filtered.length} ${state.filtered.length === 1 ? "news item" : "news items"}`;
+
+  if (!state.filtered.length) {
+    grid.innerHTML = "";
+    empty.classList.remove("d-none");
+    return;
+  }
+
+  empty.classList.add("d-none");
+  grid.innerHTML = state.filtered.map((n, i) => `
+    <div class="col-md-6 col-xl-4">
+      <article class="update-card news-card">
+        ${n.image ? `
+          <div class="update-card-image">
+            <img src="${escapeHtml(n.image)}" alt="${escapeHtml(n.title)}" loading="lazy">
+          </div>` : `
+          <div class="update-card-placeholder">
+            <i class="bi bi-newspaper"></i>
+          </div>`}
+        <div class="update-card-body">
+          <span class="update-tag news-tag"><i class="bi bi-newspaper"></i> News</span>
+          <h3>${escapeHtml(n.title)}</h3>
+          <div class="update-date"><i class="bi bi-calendar3"></i> ${escapeHtml(formatDate(n.published_on))}</div>
+          <p>${escapeHtml(excerpt(n.body))}</p>
+          <button class="update-read-btn" onclick="openNews(${i})">
+            Read full story <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </article>
+    </div>
+  `).join("");
+}
+
+function openNews(index) {
+  const n = state.filtered[index];
+  if (!n) return;
+
+  document.getElementById("newsModalTitle").textContent = n.title || "News";
+  document.getElementById("newsModalDate").innerHTML =
+    `<i class="bi bi-calendar3"></i> ${escapeHtml(formatDate(n.published_on))}`;
+  document.getElementById("newsModalBody").innerHTML =
+    escapeHtml(n.body || "No additional details available.").replace(/\n/g, "<br>");
+
+  document.getElementById("newsModalMedia").innerHTML = n.image
+    ? `<img src="${escapeHtml(n.image)}" alt="${escapeHtml(n.title)}">`
+    : "";
+
+  const modal = document.getElementById("newsModal");
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open-custom");
+}
+
+function closeNews() {
+  const modal = document.getElementById("newsModal");
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open-custom");
+}
+
+document.getElementById("newsModalClose").addEventListener("click", closeNews);
+document.getElementById("newsModal").addEventListener("click", e => {
+  if (e.target.id === "newsModal") closeNews();
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeNews();
+});
+search.addEventListener("input", render);
+
+(async function loadNews() {
+  try {
+    const res = await fetch("/api/news");
+    if (!res.ok) throw new Error("News API returned " + res.status);
+    const data = await res.json();
+    state.items = Array.isArray(data) ? data : [];
+    render();
+  } catch (err) {
+    console.error(err);
+    grid.innerHTML = `
+      <div class="col-12">
+        <div class="updates-state error">
+          <i class="bi bi-cloud-slash"></i>
+          <h3>Unable to load news</h3>
+          <p>Please try again later.</p>
+        </div>
+      </div>`;
+    document.getElementById("newsCount").textContent = "";
+  }
+})();
+
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

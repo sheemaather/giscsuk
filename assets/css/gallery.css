@@ -1,0 +1,83 @@
+/* =========================================================
+   gallery.css — page-specific styles for gallery.html only.
+   Shared site styles (nav, dept-header, footer) live in
+   department.css — link both files together.
+   ========================================================= */
+
+/* ===== Category filter pills ===== */
+.gal-filters{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2.2rem}
+.gal-filter-btn{
+  border:1px solid var(--border,#e6edf4);background:#fff;color:#3f5e7a;font-weight:700;font-size:.85rem;
+  padding:.55rem 1.2rem;border-radius:999px;cursor:pointer;transition:.18s;
+}
+.gal-filter-btn:hover{border-color:var(--blue,#0a58a0);color:var(--blue,#0a58a0);transform:translateY(-1px)}
+.gal-filter-btn.active{background:var(--blue,#0a58a0);border-color:var(--blue,#0a58a0);color:#fff;box-shadow:0 6px 16px rgba(10,88,160,.25)}
+
+/* ===== Masonry waterfall grid (CSS columns) ===== */
+.gal-masonry{column-count:1;column-gap:18px}
+@media(min-width:576px){.gal-masonry{column-count:2}}
+@media(min-width:900px){.gal-masonry{column-count:3}}
+@media(min-width:1300px){.gal-masonry{column-count:4}}
+
+.gal-item{
+  break-inside:avoid;margin-bottom:18px;border-radius:1.1rem;overflow:hidden;position:relative;
+  cursor:pointer;background:#eaf1fa;box-shadow:0 8px 22px rgba(20,50,75,.06);
+  opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;
+}
+.gal-item.in-view{opacity:1;transform:translateY(0)}
+.gal-item img{width:100%;display:block;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.gal-item:hover img{transform:scale(1.07)}
+
+.gal-overlay{
+  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.1rem;
+  background:linear-gradient(180deg,rgba(11,30,51,0) 40%,rgba(6,17,29,.88) 100%);
+  opacity:0;transition:opacity .3s ease;
+}
+.gal-item:hover .gal-overlay{opacity:1}
+.gal-overlay .gal-cat{
+  align-self:flex-start;font-size:.66rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  background:rgba(255,255,255,.16);color:#fff;padding:.24rem .6rem;border-radius:999px;margin-bottom:.5rem;
+  backdrop-filter:blur(4px);
+}
+.gal-overlay h6{color:#fff;font-weight:800;font-size:.98rem;margin:0}
+
+.gal-expand-icon{
+  position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;
+  background:rgba(11,30,51,.55);color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;opacity:0;transition:opacity .25s ease,transform .25s ease;backdrop-filter:blur(4px);
+}
+.gal-item:hover .gal-expand-icon{opacity:1;transform:scale(1.05)}
+
+.gal-empty{text-align:center;padding:4rem 1rem;color:#8ba0b2;background:#f8faff;border-radius:1.2rem}
+
+/* ===== Lightbox with next/prev navigation ===== */
+.gal-lightbox{
+  position:fixed;inset:0;background:rgba(6,12,20,.95);z-index:2000;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.gal-lightbox.open{display:flex}
+.gal-lightbox-inner{position:relative;max-width:92vw;max-height:88vh;display:flex;flex-direction:column;align-items:center;gap:.9rem}
+.gal-lightbox img{max-width:92vw;max-height:76vh;border-radius:12px;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.gal-lightbox-caption{color:#e7eef5;text-align:center}
+.gal-lightbox-caption .gal-cat{color:#8fc4ec;font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:.2rem}
+.gal-lightbox-caption h6{margin:0;font-weight:800;font-size:1.05rem}
+
+.gal-lightbox-close{
+  position:absolute;top:-6px;right:-6px;color:#fff;font-size:1.6rem;background:rgba(255,255,255,.12);
+  border:none;width:40px;height:40px;border-radius:50%;cursor:pointer;transition:.2s;
+}
+.gal-lightbox-close:hover{background:rgba(255,255,255,.22)}
+
+.gal-nav-btn{
+  position:fixed;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1.3rem;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s;z-index:2001;
+}
+.gal-nav-btn:hover{background:rgba(255,255,255,.22)}
+.gal-nav-prev{left:24px}
+.gal-nav-next{right:24px}
+@media(max-width:700px){
+  .gal-nav-btn{width:42px;height:42px;font-size:1.1rem}
+  .gal-nav-prev{left:8px}
+  .gal-nav-next{right:8px}
+}
