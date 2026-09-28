@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GISC Sukkur — Nav Bar (Oxford-style)</title>
+<style>
+  :root{
+    --navy:#002147;
+    --navy-dark:#001430;
+    --gold:#C9A227;
+    --ink:#1a1a1a;
+    --paper:#f6f5f2;
+    --line:rgba(255,255,255,.14);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+
+  /* ---------- Top utility bar ---------- */
+  .util-bar{background:var(--navy-dark);color:#cfd6e0;font-size:13px;}
+  .util-bar .row{max-width:1180px;margin:0 auto;padding:6px 20px;display:flex;justify-content:flex-end;gap:20px;}
+  .util-bar a{color:#cfd6e0;text-decoration:none;}
+  .util-bar a:hover{color:#fff;text-decoration:underline;}
+
+  /* ---------- Main nav bar ---------- */
+  .navbar{background:var(--navy);position:sticky;top:0;z-index:40;
+    box-shadow:0 1px 0 var(--line);}
+  .navbar .row{max-width:1180px;margin:0 auto;padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;}
+  .brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;}
+  .brand .mark{width:34px;height:34px;border:2px solid var(--gold);border-radius:2px;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--gold);}
+  .brand .name{font-size:16px;font-weight:600;letter-spacing:.2px;line-height:1.15;}
+  .brand .name small{display:block;font-weight:400;font-size:11.5px;color:#a9b4c4;}
+
+  .menu-btn{background:transparent;border:1px solid var(--line);color:#fff;
+    font-size:14px;padding:9px 16px;border-radius:3px;cursor:pointer;
+    display:flex;align-items:center;gap:8px;font-family:inherit;}
+  .menu-btn:hover{background:rgba(255,255,255,.08);}
+  .menu-btn .bars{width:18px;height:12px;position:relative;}
+  .menu-btn .bars span{position:absolute;left:0;right:0;height:2px;background:#fff;}
+  .menu-btn .bars span:nth-child(1){top:0;}
+  .menu-btn .bars span:nth-child(2){top:5px;}
+  .menu-btn .bars span:nth-child(3){top:10px;}
+
+  /* ---------- Drill-down overlay panel ---------- */
+  .overlay{position:fixed;inset:0;background:var(--navy);color:#fff;
+    transform:translateX(100%);transition:transform .32s ease;z-index:50;
+    display:flex;flex-direction:column;}
+  .overlay.open{transform:translateX(0);}
+  .overlay-head{display:flex;justify-content:space-between;align-items:center;
+    padding:16px 20px;border-bottom:1px solid var(--line);flex:0 0 auto;}
+  .overlay-head .brand .name{color:#fff;}
+  .close-btn{background:none;border:none;color:#fff;font-size:26px;cursor:pointer;line-height:1;padding:4px 8px;}
+
+  .panels{position:relative;flex:1 1 auto;overflow:hidden;}
+  .panel{position:absolute;inset:0;overflow-y:auto;padding:8px 0 40px;
+    transform:translateX(30px);opacity:0;pointer-events:none;transition:transform .28s ease, opacity .28s ease;}
+  .panel.active{transform:translateX(0);opacity:1;pointer-events:auto;}
+  .goback{display:none;align-items:center;gap:8px;width:100%;text-align:left;
+    background:none;border:none;color:var(--gold);font-size:14px;font-family:inherit;
+    padding:16px 24px;cursor:pointer;border-bottom:1px solid var(--line);}
+  .goback.show{display:flex;}
+  .goback:before{content:"‹";font-size:20px;line-height:1;}
+
+  .nav-list{list-style:none;margin:0;padding:0;}
+  .nav-list > li{border-bottom:1px solid var(--line);}
+  .nav-item{width:100%;display:flex;align-items:center;justify-content:space-between;
+    background:none;border:none;color:#fff;text-decoration:none;
+    font-size:19px;font-weight:500;padding:18px 24px;cursor:pointer;font-family:inherit;}
+  .nav-item:hover, .nav-item:focus-visible{background:rgba(255,255,255,.06);}
+  .nav-item .chev{color:#a9b4c4;font-size:18px;}
+  .sub-list .nav-item{font-size:16px;font-weight:400;padding:14px 24px 14px 34px;}
+
+  @media (min-width:640px){
+    .panels{max-width:440px;}
+    .overlay{background:linear-gradient(90deg, var(--navy) 0 440px, rgba(0,0,0,.45) 440px);}
+  }
+
+  /* ---------- Page filler so scroll/sticky is visible ---------- */
+  main{max-width:1180px;margin:0 auto;padding:60px 20px;}
+  main h1{font-size:28px;margin-bottom:8px;}
+  main p{color:#444;max-width:60ch;line-height:1.6;}
+</style>
+</head>
+<body>
+
+  <div class="util-bar"><div class="row">
+    <a href="#">Admissions</a><a href="#">Faculty Login</a><a href="#">Contact</a>
+  </div></div>
+
+  <header class="navbar"><div class="row">
+    <a href="#" class="brand">
+      <span class="mark">G</span>
+      <span class="name">GISC Sukkur<small>Govt. Islamia Science College</small></span>
+    </a>
+    <button class="menu-btn" id="openMenu" aria-label="Open menu">
+      <span class="bars"><span></span><span></span><span></span></span>
+      Menu
+    </button>
+  </div></header>
+
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true">
+    <div class="overlay-head">
+      <span class="brand"><span class="mark">G</span><span class="name">GISC Sukkur</span></span>
+      <button class="close-btn" id="closeMenu" aria-label="Close menu">&times;</button>
+    </div>
+    <div class="panels" id="panels"><!-- panels injected by JS --></div>
+  </div>
+
+  <main>
+    <h1>GISC Sukkur Portal</h1>
+    <p>This is a placeholder page so you can see the nav bar in context. Click "Menu" top-right to open the drill-down panel — it's the same pattern as ox.ac.uk's main navigation, restyled in your own colors.</p>
+  </main>
+
+<script>
+// ---- Menu data: adapt labels/links to your real routes ----
+const menuData = [
+  { label: "Home", href: "/" },
+  { label: "Admissions", href: "/admissions" },
+  {
+    label: "Departments",
+    children: [
+      { label: "Computer Science", href: "/departments/cs" },
+      { label: "Physics", href: "/departments/physics" },
+      { label: "Chemistry", href: "/departments/chemistry" },
+      { label: "Mathematics", href: "/departments/mathematics" },
+      { label: "Botany", href: "/departments/botany" },
+      { label: "Zoology", href: "/departments/zoology" },
+      { label: "English", href: "/departments/english" },
+      { label: "Economics", href: "/departments/economics" },
+      { label: "Islamic Studies", href: "/departments/islamic-studies" }
+    ]
+  },
+  { label: "Faculty", href: "/faculty" },
+  { label: "News & Notifications", href: "/news" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Timetable", href: "/timetable" },
+  { label: "Contact", href: "/contact" }
+];
+
+const panelsEl = document.getElementById('panels');
+const overlay = document.getElementById('overlay');
+
+function buildList(items, panelId, title){
+  const panel = document.createElement('div');
+  panel.className = 'panel';
+  panel.id = panelId;
+
+  const back = document.createElement('button');
+  back.className = 'goback' + (panelId === 'panel-root' ? '' : ' show');
+  back.textContent = title || 'Back';
+  back.addEventListener('click', () => showPanel('panel-root'));
+  panel.appendChild(back);
+
+  const ul = document.createElement('ul');
+  ul.className = 'nav-list';
+  items.forEach((item, i) => {
+    const li = document.createElement('li');
+    if (item.children) {
+      const childId = `${panelId}-child-${i}`;
+      const btn = document.createElement('button');
+      btn.className = 'nav-item';
+      btn.innerHTML = `<span>${item.label}</span><span class="chev">›</span>`;
+      btn.addEventListener('click', () => showPanel(childId));
+      li.appendChild(btn);
+      panelsEl.appendChild(buildList(item.children, childId, item.label));
+    } else {
+      const a = document.createElement('a');
+      a.className = 'nav-item';
+      a.href = item.href || '#';
+      a.innerHTML = `<span>${item.label}</span>`;
+      li.appendChild(a);
+    }
+    ul.appendChild(li);
+  });
+  panel.appendChild(ul);
+  return panel;
+}
+
+panelsEl.appendChild(buildList(menuData, 'panel-root'));
+
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === id));
+}
+showPanel('panel-root');
+
+document.getElementById('openMenu').addEventListener('click', () => {
+  overlay.classList.add('open');
+  showPanel('panel-root');
+});
+document.getElementById('closeMenu').addEventListener('click', () => {
+  overlay.classList.remove('open');
+});
+</script>
+</body>
+</html>

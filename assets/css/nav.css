@@ -1,0 +1,62 @@
+/* =========================================================
+   nav.css
+   Shared topbar + drill-down navigation menu. Link this on
+   EVERY page (alongside whatever page-specific CSS that page
+   already uses — style.css, department.css, admission.css,
+   etc). This file only styles the topbar/nav/overlay classes,
+   nothing else, so it never conflicts with a page's own CSS.
+   ========================================================= */
+
+:root{
+  --nav-navy:#0b1e33;
+  --nav-blue:#0a58a0;
+  --nav-soft:#f2f5f9;
+  --nav-border:#e6edf4;
+}
+
+/* ===== Top bar / navigation ===== */
+.topbar{background:var(--nav-navy);color:#cddcec;font-size:.85rem;padding:.3rem 0;border-bottom:1px solid #1f3a55;box-sizing:border-box}
+.topbar i{margin-right:6px;color:#7ea6d0}
+.navbar-custom{background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.03);border-bottom:1px solid #eef2f6;padding:.2rem 0;position:relative;z-index:1000;box-sizing:border-box}
+.navbar-custom .container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.brand-wrap{display:flex;align-items:center;gap:.5rem;color:var(--nav-navy);min-height:62px;text-decoration:none}
+.brand-wrap img{height:50px;width:50px;object-fit:contain}
+.brand-text{line-height:1.2}
+.brand-text strong{font-size:.9rem;display:block;font-weight:700;letter-spacing:-.01em}
+.brand-text small{font-size:.7rem;color:#3f5e7a;font-weight:500}
+
+/* The original menu list is no longer displayed inline — JS reads it
+   (li > a, and .mega-drop .drop-item for children) to build the
+   drill-down overlay below, then this stays hidden. Keep editing links
+   in this one list; the overlay panel is generated from it. */
+.nav-hover{display:none}
+
+.nav-toggle{display:flex;align-items:center;gap:.5rem;background:none;border:1px solid var(--nav-border);border-radius:6px;font-size:.95rem;font-weight:600;color:var(--nav-navy);padding:.5rem 1rem;cursor:pointer;line-height:1;box-sizing:border-box}
+.nav-toggle:hover{background:var(--nav-soft)}
+
+/* ===== Drill-down overlay (Oxford-style slide-in menu) ===== */
+.overlay,.overlay *{box-sizing:border-box}
+.overlay{position:fixed;inset:0;background:var(--nav-navy);color:#fff;transform:translateX(100%);transition:transform .32s ease;z-index:2000;display:flex;flex-direction:column}
+.overlay.open{transform:translateX(0)}
+.overlay-head{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.14);flex:0 0 auto}
+.overlay-head strong{color:#fff;font-size:.9rem}
+.close-btn{background:none;border:none;color:#fff;font-size:1.7rem;cursor:pointer;line-height:1;padding:.2rem .5rem}
+
+.panels{position:relative;flex:1 1 auto;overflow:hidden}
+.panel{position:absolute;inset:0;overflow-y:auto;padding:.5rem 0 2.5rem;transform:translateX(30px);opacity:0;pointer-events:none;transition:transform .28s ease,opacity .28s ease}
+.panel.active{transform:translateX(0);opacity:1;pointer-events:auto}
+.goback{display:none;align-items:center;gap:.5rem;width:100%;text-align:left;background:none;border:none;color:#7ea6d0;font-size:.9rem;font-family:inherit;padding:1rem 1.5rem;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.14)}
+.goback.show{display:flex}
+.goback:before{content:"\2039";font-size:1.3rem;line-height:1}
+
+.nav-list{list-style:none;margin:0;padding:0}
+.nav-list>li{border-bottom:1px solid rgba(255,255,255,.14)}
+.nav-item{width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;color:#fff;text-decoration:none;font-size:1.15rem;font-weight:600;padding:1.1rem 1.5rem;cursor:pointer;font-family:inherit}
+.nav-item:hover,.nav-item:focus-visible{background:rgba(255,255,255,.07)}
+.nav-item .chev{color:#7ea6d0;font-size:1.1rem}
+.sub-list .nav-item{font-size:1rem;font-weight:400;padding:.85rem 1.5rem .85rem 2.1rem}
+
+@media (min-width:640px){
+  .panels{max-width:420px}
+  .overlay{background:linear-gradient(90deg,var(--nav-navy) 0 420px,rgba(0,0,0,.45) 420px)}
+}

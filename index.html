@@ -8,176 +8,11 @@
   <link href="assets/css/style.css" rel="stylesheet">
   <link href="assets/css/chatbot.css" rel="stylesheet">
   <link href="assets/css/hero-slider.css" rel="stylesheet">
+  <link href="assets/css/nav.css" rel="stylesheet">
+  <link href="assets/css/home-updates.css" rel="stylesheet">
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background: #f2f5f9;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    }
-    /* keep original topbar, hero, footer etc – we only overwrite nav */
-    .topbar {
-      background: #0b1e33;
-      color: #cddcec;
-      font-size: 0.85rem;
-      padding: 0.3rem 0;
-      border-bottom: 1px solid #1f3a55;
-    }
-    .topbar i { margin-right: 6px; color: #7ea6d0; }
-
-    /* ----- main navigation (clean, hover-driven) ----- */
-    .navbar-custom {
-      background: white;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-      border-bottom: 1px solid #eef2f6;
-      padding: 0.2rem 0;
-    }
-    .navbar-custom .container {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .brand-wrap {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-decoration: none;
-      color: #0b1e33;
-    }
-    .brand-wrap img {
-      height: 42px;
-      width: auto;
-    }
-    .brand-wrap .brand-text {
-      line-height: 1.2;
-    }
-    .brand-wrap .brand-text strong {
-      font-size: 0.9rem;
-      display: block;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-    .brand-wrap .brand-text small {
-      font-size: 0.7rem;
-      color: #3f5e7a;
-      font-weight: 500;
-    }
-
-    /* navigation list – flex, clean */
-    .nav-hover {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.3rem 1rem;
-      list-style: none;
-      margin: 0;
-      padding: 0.4rem 0;
-    }
-    .nav-hover > li {
-      position: relative;
-      padding: 0.4rem 0;
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: #1a2639;
-      cursor: default;
-      transition: color 0.15s;
-      letter-spacing: -0.01em;
-    }
-    .nav-hover > li > a {
-      text-decoration: none;
-      color: inherit;
-      padding: 0.3rem 0.1rem;
-      display: inline-block;
-    }
-    .nav-hover > li:hover {
-      color: #0a58a0;
-    }
-
-    /* dropdown panel – same elegant style */
-    .mega-drop {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      min-width: 210px;
-      background: white;
-      border-radius: 1.2rem;
-      padding: 1.2rem 1.2rem 0.8rem 1.2rem;
-      box-shadow: 0 18px 36px -8px rgba(0, 20, 30, 0.15), 0 0 0 1px rgba(0,0,0,0.02);
-      visibility: hidden;
-      opacity: 0;
-      transform: translateY(6px) scale(0.98);
-      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1), visibility 0.2s;
-      pointer-events: none;
-      z-index: 9999;
-      border: 1px solid #e6edf4;
-    }
-    .nav-hover > li:hover .mega-drop {
-      visibility: visible;
-      opacity: 1;
-      transform: translateY(4px) scale(1);
-      pointer-events: auto;
-    }
-    .hero-slide video{
-      width:100%;height:100%;object-fit:cover;
-      position:absolute;inset:0;z-index: 0;
-    }
-    
-    
-    
-    /* dropdown items */
-    .drop-item {
-      padding: 0.3rem 0.2rem 0.3rem 0;
-      font-size: 0.9rem;
-      color: #1e2a3a;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: background 0.2s, padding-left 0.2s;
-      border-radius: 6px;
-      padding-left: 0.2rem;
-      cursor: default;
-      text-decoration: none;
-      color: #1a2639;
-    }
-    .drop-item:hover {
-      background: #f0f5fd;
-      padding-left: 0.6rem;
-      color: #0a4a7a;
-    }
-    .drop-item .bullet {
-      opacity: 0.5;
-      font-size: 1.2rem;
-      line-height: 1;
-      color: #2c6b9e;
-    }
-    .drop-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.2rem 1rem;
-    }
-    @media (max-width: 700px) {
-      .drop-grid { grid-template-columns: 1fr; }
-      .nav-hover { gap: 0.2rem 0.6rem; }
-    }
-
-    /* special: right align last item (Publications) */
-    .nav-hover > li:last-child .mega-drop {
-      left: auto;
-      right: 0;
-    }
-    /* no drop for Publications – but we keep it consistent */
-    .nav-hover > li.publication-only .mega-drop {
-      display: none;
-    }
-    .nav-hover > li.publication-only:hover .mega-drop {
-      display: none;
-    }
-
-    /* preserve original layout: the rest is unchanged */
+       
     /* .hero original styles preserved elsewhere */
     .quick-strip { background: #b9cfed; padding: 0.2rem 0; }
     /* all other sections keep original */
@@ -188,12 +23,7 @@
     .stat-grid strong { display: block; font-size: 2rem; font-weight: 700; color: #0b2a44; }
     .stat-grid span { color: #3d5f7a; font-size: 0.85rem; }
       
-      footer { background: #0b1e33; color: #b8cee3; }
-      footer a { color: #c6d9ec; text-decoration: none; display: block; padding: 0.15rem 0; }
-      footer a:hover { color: white; }
-      footer .footer-logo { height: 44px; }
-      hr { border-color: #284b68; }
-    /* ----- program sections (ADS / BS Zoology / HSC) reuse the BSCS stat-grid look ----- */
+      /* ----- program sections (ADS / BS Zoology / HSC) reuse the BSCS stat-grid look ----- */
       .prog-eyebrow-row { display:flex; align-items:center; gap:.6rem; margin-bottom:.4rem; }
       .prog-icon { width:44px; height:44px; border-radius:.9rem; background:#eaf1fa; color:#0a58a0; display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
 
@@ -264,12 +94,21 @@
   <div class="col-md-3"><a href="publications.html"><i class="bi bi-calendar3"></i><span>News</span></a></div>
   <div class="col-md-3"><a href="publications.html"><i class="bi bi-megaphone"></i><span>Notifications</span></a></div>
   <div class="col-md-3"><a href="admissions.html"><i class="bi-file-earmark-person"></i><span>Admissions</span></a></div>
-  </div></div></section>
+    
+</div></div></section>
+  <section class="home-updates">
+  <div class="container">
+    <div class="section-heading">
+      <h2>News &amp; Notices</h2>
+      <a href="publications.html" class="view-all">View all updates</a>
+    </div>
 
-  <section class="section"><div class="container">
- <div class="section-heading"><div><span class="eyebrow">DEPARTMENT UPDATES</span><h2>Latest News & Notices</h2></div><a href="publications.html">View all <i class="bi bi-arrow-right"></i></a></div>
- <div class="row g-4" id="homeNews"></div>
-  </div></section>
+    <div class="hu-grid" id="homeUpdatesGrid">
+      <div class="hu-empty">Loading…</div>
+    </div>
+  </div>
+</section>
+ 
 
   <section class="section soft"><div class="container">
   <div class="prog-card prog-bscs"><div class="row align-items-center g-5"><div class="col-lg-6"><span class="eyebrow">BS COMPUTER SCIENCE</span><h2>Four years of focused computing education.</h2><p>Students progress through eight semesters covering programming, data structures, databases, networks, AI, software engineering, security, data science and a final year project.</p><a href="BSCS.html" class="btn btn-dark rounded-pill">Explore the Program</a></div>
@@ -324,5 +163,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script src="assets/js/main.js"></script>
   <script src="assets/js/chatbot-widget.js"></script>
   <script src="assets/js/load.js"></script>
+  <script src="assets/js/home-updates.js"></script>
 </body>
 </html>

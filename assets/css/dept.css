@@ -6,7 +6,7 @@
    ========================================================= */
 
 :root{
-  --navy:#0c2548;
+  --navy:#0b1e33;
   --blue:#0a58a0;
   --soft:#f2f5f9;
   --text:#1a2639;
@@ -27,42 +27,24 @@ a{text-decoration:none}
 .brand-text{line-height:1.2}
 .brand-text strong{font-size:.9rem;display:block;font-weight:700;letter-spacing:-.01em}
 .brand-text small{font-size:.7rem;color:#3f5e7a;font-weight:500}
-
-/* The original menu list is no longer displayed inline \u2014 JS reads it
-   (li > a, and .mega-drop .drop-item for children) to build the
-   drill-down overlay below, then this stays hidden. Keep editing links
-   in this one list; the overlay panel is generated from it. */
-.nav-hover{display:none}
-
-.nav-toggle{display:flex;align-items:center;gap:.5rem;background:none;border:1px solid var(--border);border-radius:6px;font-size:.95rem;font-weight:600;color:var(--navy);padding:.5rem 1rem;cursor:pointer;line-height:1}
-.nav-toggle:hover{background:var(--soft)}
-
-/* ===== Drill-down overlay (Oxford-style slide-in menu) ===== */
-.overlay{position:fixed;inset:0;background:var(--navy);color:#fff;transform:translateX(100%);transition:transform .32s ease;z-index:2000;display:flex;flex-direction:column}
-.overlay.open{transform:translateX(0)}
-.overlay-head{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.14);flex:0 0 auto}
-.overlay-head strong{color:#fff;font-size:.9rem}
-.close-btn{background:none;border:none;color:#fff;font-size:1.7rem;cursor:pointer;line-height:1;padding:.2rem .5rem}
-
-.panels{position:relative;flex:1 1 auto;overflow:hidden}
-.panel{position:absolute;inset:0;overflow-y:auto;padding:.5rem 0 2.5rem;transform:translateX(30px);opacity:0;pointer-events:none;transition:transform .28s ease,opacity .28s ease}
-.panel.active{transform:translateX(0);opacity:1;pointer-events:auto}
-.goback{display:none;align-items:center;gap:.5rem;width:100%;text-align:left;background:none;border:none;color:#7ea6d0;font-size:.9rem;font-family:inherit;padding:1rem 1.5rem;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.14)}
-.goback.show{display:flex}
-.goback:before{content:"\2039";font-size:1.3rem;line-height:1}
-
-.nav-list{list-style:none;margin:0;padding:0}
-.nav-list>li{border-bottom:1px solid rgba(255,255,255,.14)}
-.nav-item{width:100%;display:flex;align-items:center;justify-content:space-between;background:none;border:none;color:#fff;text-decoration:none;font-size:1.15rem;font-weight:600;padding:1.1rem 1.5rem;cursor:pointer;font-family:inherit}
-.nav-item:hover,.nav-item:focus-visible{background:rgba(255,255,255,.07)}
-.nav-item .chev{color:#7ea6d0;font-size:1.1rem}
-.sub-list .nav-item{font-size:1rem;font-weight:400;padding:.85rem 1.5rem .85rem 2.1rem}
-
-@media (min-width:640px){
-  .panels{max-width:420px}
-  .overlay{background:linear-gradient(90deg,var(--navy) 0 420px,rgba(0,0,0,.45) 420px)}
+.nav-hover{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem 1rem;list-style:none;margin:0;padding:.4rem 0}
+.nav-hover>li{position:relative;padding:.4rem 0;font-weight:600;font-size:.95rem;color:var(--text);cursor:default;transition:color .15s}
+.nav-hover>li>a{color:inherit;padding:.3rem .1rem;display:inline-block}
+.nav-hover>li:hover{color:var(--blue)}
+.mega-drop{position:absolute;top:100%;left:0;min-width:210px;background:#fff;border-radius:1.2rem;padding:1.2rem 1.2rem .8rem;box-shadow:0 18px 36px -8px rgba(0,20,30,.15),0 0 0 1px rgba(0,0,0,.02);visibility:hidden;opacity:0;transform:translateY(6px) scale(.98);transition:.2s ease;pointer-events:none;z-index:9999;border:1px solid var(--border)}
+.nav-hover>li:hover .mega-drop{visibility:visible;opacity:1;transform:translateY(4px) scale(1);pointer-events:auto}
+.nav-hover>li:last-child .mega-drop{left:auto;right:0}
+.nav-hover>li.publication-only .mega-drop,
+.nav-hover>li.publication-only:hover .mega-drop{display:none}
+.drop-grid{display:grid;grid-template-columns:1fr 1fr;gap:.2rem 1rem}
+.drop-item{padding:.3rem .2rem;font-size:.9rem;color:var(--text);display:flex;align-items:center;gap:.4rem;border-radius:6px}
+.drop-item:hover{background:#f0f5fd;padding-left:.6rem;color:#0a4a7a}
+.drop-item .bullet{opacity:.5;font-size:1.2rem;line-height:1;color:#2c6b9e}
+.nav-toggle{display:none;background:none;border:none;font-size:1.6rem;color:var(--navy);padding:.3rem .5rem;cursor:pointer;line-height:1}
+/*@media (max-width:700px){
+  .drop-grid{grid-template-columns:1fr}
+  .nav-hover{gap:.2rem .6rem}
 }
-
 /* ===== Featured faculty card (HOD / senior professor) ===== */
 .professor-feature{background:#fff;border:1px solid var(--border);border-radius:1.4rem;padding:2.2rem;display:flex;gap:2.2rem;align-items:center;box-shadow:0 10px 30px rgba(20,50,75,.05);margin-bottom:1.5rem}
 .professor-photo{width:200px;height:200px;flex:none;border-radius:50%;background:#eaf1fa;border:4px solid #eaf6ff;display:flex;align-items:center;justify-content:center;font-size:3.2rem;font-weight:800;color:var(--blue);overflow:hidden}
@@ -71,6 +53,7 @@ a{text-decoration:none}
 .professor-info .role-title{color:var(--blue);font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
 .professor-info .designation{color:var(--blue);font-weight:700;font-size:.85rem;margin-bottom:.8rem}
 .professor-info p{color:#4b6478;font-size:.95rem;line-height:1.7;margin-bottom:0}
+/* @media (max-width:700px){.professor-feature{flex-direction:column;text-align:center}} */
 
 /* ===== Faculty grid (lecturers) ===== */
 .faculty-grid-card{background:#fff;border:1px solid var(--border);border-radius:1.2rem;padding:1.6rem 1.2rem;text-align:center;height:100%;transition:transform .2s ease,box-shadow .2s ease}
@@ -138,14 +121,25 @@ hr{border-color:#284b68}
 
 /* ===== Responsive ===== */
 @media(max-width:900px){
-  .professor-feature{flex-direction:column;text-align:center;padding:1.6rem}
-  .professor-photo{width:150px;height:150px;font-size:2.4rem}
+  .navbar-custom .container{justify-content:space-between}
+  .nav-toggle{display:block}
+  .nav-hover{display:none;flex-direction:column;align-items:stretch;width:100%;gap:0;padding:.5rem 0 1rem;justify-content:center}
+  .nav-hover.open{display:flex}
+  .nav-hover>li{width:100%;padding:.7rem 0;border-bottom:1px solid var(--border)}
+  .nav-hover>li>a{display:block;width:100%;padding:.3rem 0}
+  .mega-drop{position:static;visibility:visible;opacity:1;pointer-events:auto;transform:none;box-shadow:none;border:none;min-width:0;width:100%;padding:.4rem 0 0 .8rem;max-height:0;overflow:hidden;transition:max-height .25s ease}
+  .nav-hover>li.drop-open .mega-drop{max-height:600px}
+  .nav-hover>li:last-child .mega-drop{left:auto;right:auto}
+  .drop-grid{grid-template-columns:1fr}
   .main-photo{height:390px}
   .gallery-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:576px){
   .brand-wrap{width:100%;justify-content:center}
-  .professor-photo{width:120px;height:120px;font-size:2rem}
+  .nav-hover{gap:.15rem .65rem}
+  .nav-hover>li{font-size:.86rem}
+  .mega-drop{left:50%;transform:translate(-50%,6px) scale(.98)}
+  .nav-hover>li:hover .mega-drop{transform:translate(-50%,4px) scale(1)}
   .page-header{padding:35px 0 28px}
   .about-section{padding-top:35px}
   .main-photo{height:270px}

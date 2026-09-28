@@ -1,0 +1,70 @@
+/* =========================================================
+   MOBILE NAV — append this block to the bottom of BOTH
+   department.css and academic-pages.css (they both define
+   the nav classes, so both need the same mobile behavior).
+   ========================================================= */
+
+/* Hamburger button — hidden on desktop by default */
+.nav-toggle{
+  display:none;
+  background:none;
+  border:none;
+  font-size:1.6rem;
+  color:var(--navy);
+  padding:.3rem .5rem;
+  cursor:pointer;
+  line-height:1;
+}
+
+@media (max-width:900px){
+  /* Show the hamburger, and let the brand row sit above the menu */
+  .navbar-custom .container{ justify-content:space-between; }
+  .nav-toggle{ display:block; }
+
+  /* Menu is collapsed by default on mobile */
+  .nav-hover{
+    display:none;
+    flex-direction:column;
+    align-items:stretch;
+    width:100%;
+    gap:0;
+    padding:.5rem 0 1rem;
+  }
+  .nav-hover.open{ display:flex; }
+
+  .nav-hover > li{
+    width:100%;
+    padding:.7rem 0;
+    border-bottom:1px solid var(--border);
+  }
+  .nav-hover > li > a{
+    display:block;
+    width:100%;
+    padding:.3rem 0;
+  }
+
+  /* Dropdowns become inline expandable panels instead of
+     floating absolutely-positioned boxes — the old positioning
+     breaks on narrow screens and relies on :hover, which
+     touch devices don't reliably support. */
+  .mega-drop{
+    position:static;
+    visibility:visible;
+    opacity:1;
+    pointer-events:auto;
+    transform:none;
+    box-shadow:none;
+    border:none;
+    min-width:0;
+    width:100%;
+    padding:.4rem 0 0 .8rem;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .25s ease;
+  }
+  .nav-hover > li.drop-open .mega-drop{
+    max-height:600px; /* generous cap so long dropdowns (Faculty) fully show */
+  }
+  .nav-hover > li:last-child .mega-drop{ left:auto; right:auto; }
+  .drop-grid{ grid-template-columns:1fr; }
+}

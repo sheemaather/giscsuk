@@ -9,7 +9,7 @@
   <link href="assets/css/style.css" rel="stylesheet">
   <link href="assets/css/chatbot.css" rel="stylesheet">
   <link href="assets/css/academic-pages.css" rel="stylesheet">
-  
+  <link href="assets/css/nav.css" rel="stylesheet">
 </head>
 <style>
 .Education Mnister {
@@ -19,11 +19,35 @@
   margin-top: 10px;
   }
 .about-section{padding:58px 0 30px}
-.main-photo{width:50%;height:470px;object-fit:cover;border-radius:10px;display:block;box-shadow:0 12px 30px rgba(11,30,51,.12)}
-.vision-block{padding:30px 0 8px}
+
+.person-row{
+  display:flex;
+  align-items:center;
+  gap:32px;
+  padding:28px 0;
+  border-bottom:1px solid #e3e9f0;
+}
+.person-row:last-child{border-bottom:0}
+
+.person-row .main-photo{
+  width:300px !important;
+  height:380px !important;
+  flex:0 0 300px;
+  object-fit:cover;
+  object-position:top center;
+  border-radius:10px;
+  box-shadow:0 12px 30px rgba(11,30,51,.12);
+}
+
+.person-row .vision-block{flex:1;padding:0;min-width:0}
 .eyebrow{display:inline-block;color:#0a58a0;font-weight:700;font-size:.78rem;letter-spacing:.13em;margin-bottom:9px}
-.vision-block h2{font-size:2rem;color:#0b2a44;font-weight:750;margin-bottom:20px}
-.vision-quote{font-size:1.45rem;line-height:1.65;color:#314d68;margin:0;padding-left:22px;border-left:4px solid #0a58a0;max-width:900px}
+.vision-block h2{font-size:1.8rem;color:#0b2a44;font-weight:750;margin-bottom:14px}
+.edu-minister{font-size:16px;line-height:1.6;color:#555;margin:0}
+
+@media(max-width:768px){
+  .person-row{flex-direction:column;align-items:flex-start}
+  .person-row .main-photo{width:100% !important;flex:none;height:320px !important}
+}
 @media(max-width:900px){
   .navbar-custom .container{justify-content:center}
   .nav-hover{justify-content:center}
@@ -55,48 +79,63 @@
   </header>
 
   
-  <section class="about-section">
-     <div class="container">
-        <img class="main-photo" src="/assets/images/Minister.jfif" alt="Government Islamia Science College Sukkur">
-        <div class="vision-block">
+  <div class="container">
+  <div class="person-row">
+    <img class="main-photo" src="/assets/images/Minister.jfif" alt="Syed Sardar Ali Shah, Education Minister">
+    <div class="vision-block">
           <span class="eyebrow">SYED SARDAR ALI SHAH</span>
           <h2> Education Minister</h2>
-          <p class="Education Mnister"> “Syed Sardar Ali Shah is a Pakistani politician who served as the Provincial Minister of Sindh for Education, Culture, Tourism, and Antiquities and Archives.[1] He had been a member of the Provincial Assembly of Sindh from 2013 to 2018, 2018 to 2023 and is also currently a member since 2024..”</p>
+          <p class="Education Mnister"> Syed Sardar Ali Shah is a Pakistani politician who served as the Provincial Minister of Sindh for Education, Culture, Tourism, and Antiquities and Archives.He had been a member of the Provincial Assembly of Sindh from 2013 to 2018, 2018 to 2023 and is also currently a member since 2024</p>
         </div>
       </div>
 
-<!--
-    <div class="container">
-      <img class="main-photo" src="/assets/images/Zahidali.jfif" alt="Government Islamia Science College Sukkur">
-
-      <div class="vision-block">
-        <span class="eyebrow">ZAHID ALI ABBASI</span>
-        <h2>Secretary School Education & Literacy Department Government of Sindh </h2>
-        <p class="Education Mnister"> “Mr. Zahid Ali Abbasi Secretary School Education and Literacy Department Government of Sindh chaired a meeting along with his team with Mr. Abdul Kabir Kazi, Managing Director Sindh Education Foundation to discuss the roadmap for operationalization of 04 Public School Buildings and viable Shelter less schools today on 27th May, 2024 at committee room of SE&LD Sindh Secretariat Karachi. 
-The SE&LD comprised of Dr. Fozia Khan, (Chief Executive Advisor), Mr. Altaf Soomro (Additional Secretary) and Mr. Inam Mallah (AD PDR). The SEF team comprised of Mr. Mubashir Mirza (Deputy Director), Ms. Naheed Abbasi (Deputy Director) and Ms. Maryam Manzoor (AD). SELD and SEF will conducting joint visits and startegizing for operationalizing these schools on urgent basis. The Secretary appreciated the expansion of the Foundation in terms of student enrollment and Partners and expressed to scale up further with additional support in the coming year.”</p>
-      </div>
-    </div>-->
 
     <div class="container">
-      <img class="main-photo" src="/assets/images/DSC_6990.jpg" alt="Government Islamia Science College Sukkur">
+  <div class="person-row">
+    <img class="main-photo" src="/assets/images/WhatsApp Image 2026-09-27 at 7.47.33 PM.jpeg" alt="Syed Sardar Ali Shah, Education Minister">
+
+    <div class="vision-block">
+       <span class="eyebrow">Nadeem ur Rehman Memon</span>
+       <h2>Secretary School Education & Literacy Department Government of Sindh </h2>
+       <p class="Education Mnister">"Nadeem ur Rehman Memon, an officer of Ex.PCS(BS-20), presently posted as Secretary Information Department, was transferred and posted as Secretary College education Sindh vice Shahab Qamar Ansari transferred.
+
+According to notification, Nadeem ur Rehman Memon shall hold the additional charge of the post of Secretary Information Department Sindh, in addition to his own duties till further orders.</p>
+
+       </div>
+    </div>
+
+    <div class="container">
+  <div class="person-row">
+    <img class="main-photo" src="/assets/images/DSC_6990.jpg" alt="Government Islamia Science College Sukkur">
 
       <div class="vision-block">
           <span class="eyebrow">PROF. SHAFIQUE AHMED RIND</span>
           <h2>Regional Director Colleges Sukkur District</h2>
-          <p class="Education Mnister"> “Syed Sardar Ali Shah is a Pakistani politician who served as the Provincial Minister of Sindh for Education, Culture, Tourism, and Antiquities and Archives.[1] He had been a member of the Provincial Assembly of Sindh from 2013 to 2018, 2018 to 2023 and is also currently a member since 2024..”</p>
+          <p class="Education Mnister"> Shafeeque Ahmed Rind is a government education administrator associated with the College Education Department of Sindh. His reported service in the regional colleges administration includes serving as Regional Director of Colleges in the Larkana Region in 2017. The Regional Directorate system of the Directorate General Colleges Sindh is responsible for administrative coordination and oversight of government colleges within its respective region.
+
+The Sukkur Regional Directorate operates within the administrative structure of the Directorate General Colleges Sindh and provides coordination and oversight for government colleges in the Sukkur region. The official Sindh Colleges portal lists government colleges in Sukkur District, including Government Islamia Science College Sukkur, Government Degree Boys College Sukkur, Government Girls Degree College Sukkur and other institutions.</p>
         </div>
       </div>
     </section>
 
     <div class="container">
-        <img class="main-photo" src="/assets/images/shahidsahab.JPG" alt="Government Islamia Science College Sukkur">
+  <div class="person-row">
+    <img class="main-photo" src="/assets/images/shahidsahab.JPG" alt="Government Islamia Science College Sukkur">
 
-        <div class="vision-block">
-          <span class="eyebrow">PROF. SHAHID AHMED KHAN</span>
-          <h2>Principal Government Islamia Science College Sukkur</h2>
-          <p class="Education Mnister"> “ er since 2024..”</p>
-        </div>
-      </div>
+    <div class="vision-block">
+      <span class="eyebrow">PROF. SHAHID AHMED KHAN</span>
+      <h2>Principal Government Islamia Science College Sukkur</h2>
+      <p class="Education Mnister">  Professor of English (BS-20), Prof. Shahid Ahmed Khan is an experienced educator and faculty member associated with Government Islamia Science College Sukkur. He has served in the field of higher education with a particular academic focus on English language and literature.
+
+According to an official Government of Sindh College Education Department notification, Prof. Shahid Ahmed Khan was serving as Associate Professor of English (BS-19) at Government Islamia Science College Sukkur. The notification also records his M.Phil degree in English from Shah Abdul Latif University, Khairpur.
+
+With his academic background and teaching experience, Prof. Shahid Ahmed Khan has contributed to the academic environment of Government Islamia Science College Sukkur, supporting students in the study of English and contributing to the institution's broader educational mission.
+
+Government Islamia Science College Sukkur is one of the established public-sector colleges in Sukkur and offers programmes in Science and Computer Science according to the Government of Sindh's official colleges listing.
+</p>
+    </div>
+  </div>
+</div>
     </section>
     <div id="footer"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

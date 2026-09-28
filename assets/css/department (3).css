@@ -6,7 +6,7 @@
    ========================================================= */
 
 :root{
-  --navy:#0c2548;
+  --navy:#0b1e33;
   --blue:#0a58a0;
   --soft:#f2f5f9;
   --text:#1a2639;
@@ -71,6 +71,7 @@ a{text-decoration:none}
 .professor-info .role-title{color:var(--blue);font-weight:700;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
 .professor-info .designation{color:var(--blue);font-weight:700;font-size:.85rem;margin-bottom:.8rem}
 .professor-info p{color:#4b6478;font-size:.95rem;line-height:1.7;margin-bottom:0}
+/* @media (max-width:700px){.professor-feature{flex-direction:column;text-align:center}} */
 
 /* ===== Faculty grid (lecturers) ===== */
 .faculty-grid-card{background:#fff;border:1px solid var(--border);border-radius:1.2rem;padding:1.6rem 1.2rem;text-align:center;height:100%;transition:transform .2s ease,box-shadow .2s ease}
@@ -138,14 +139,11 @@ hr{border-color:#284b68}
 
 /* ===== Responsive ===== */
 @media(max-width:900px){
-  .professor-feature{flex-direction:column;text-align:center;padding:1.6rem}
-  .professor-photo{width:150px;height:150px;font-size:2.4rem}
   .main-photo{height:390px}
   .gallery-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:576px){
   .brand-wrap{width:100%;justify-content:center}
-  .professor-photo{width:120px;height:120px;font-size:2rem}
   .page-header{padding:35px 0 28px}
   .about-section{padding-top:35px}
   .main-photo{height:270px}

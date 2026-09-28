@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GISC Sukkur — Nav (Oxford-style)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+<style>
+  :root{
+    --navy:#0d2b4e;
+    --navy-dark:#081c34;
+    --gold:#c9a227;
+    --ink:#1a1a1a;
+    --paper:#f6f5f2;
+    --line:rgba(255,255,255,.14);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .container{max-width:1180px;margin:0 auto;padding:0 20px;}
+
+  /* ---------- Top info bar (kept from your original topbar) ---------- */
+  .topbar{background:var(--navy-dark);color:#cfd6e0;font-size:13px;}
+  .topbar .container{padding:6px 20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .topbar i{margin-right:6px;}
+
+  /* ---------- Main nav bar ---------- */
+  .navbar-custom{background:var(--navy);position:sticky;top:0;z-index:40;box-shadow:0 1px 0 var(--line);}
+  .navbar-custom .container{padding:10px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .brand-wrap{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;}
+  .brand-wrap img{width:38px;height:38px;border-radius:2px;}
+  .brand-text strong{display:block;font-size:14.5px;letter-spacing:.2px;color:#fff;line-height:1.2;}
+  .brand-text small{display:block;font-size:11.5px;color:#a9b4c4;font-weight:400;}
+
+  .nav-toggle{background:transparent;border:1px solid var(--line);color:#fff;
+    font-size:14px;padding:9px 14px;border-radius:3px;cursor:pointer;}
+  .nav-toggle:hover{background:rgba(255,255,255,.08);}
+
+  /* the old hover-menu <ul class="nav-hover"> is no longer used for display;
+     it's read once by JS to build the drill-down panel, then hidden. */
+  .nav-hover{display:none;}
+
+  /* ---------- Drill-down overlay panel ---------- */
+  .overlay{position:fixed;inset:0;background:var(--navy);color:#fff;
+    transform:translateX(100%);transition:transform .32s ease;z-index:50;
+    display:flex;flex-direction:column;}
+  .overlay.open{transform:translateX(0);}
+  .overlay-head{display:flex;justify-content:space-between;align-items:center;
+    padding:16px 20px;border-bottom:1px solid var(--line);flex:0 0 auto;}
+  .overlay-head strong{color:#fff;font-size:14.5px;}
+  .close-btn{background:none;border:none;color:#fff;font-size:26px;cursor:pointer;line-height:1;padding:4px 8px;}
+
+  .panels{position:relative;flex:1 1 auto;overflow:hidden;}
+  .panel{position:absolute;inset:0;overflow-y:auto;padding:8px 0 40px;
+    transform:translateX(30px);opacity:0;pointer-events:none;transition:transform .28s ease, opacity .28s ease;}
+  .panel.active{transform:translateX(0);opacity:1;pointer-events:auto;}
+  .goback{display:none;align-items:center;gap:8px;width:100%;text-align:left;
+    background:none;border:none;color:var(--gold);font-size:14px;font-family:inherit;
+    padding:16px 24px;cursor:pointer;border-bottom:1px solid var(--line);}
+  .goback.show{display:flex;}
+  .goback:before{content:"‹";font-size:20px;line-height:1;}
+
+  .nav-list{list-style:none;margin:0;padding:0;}
+  .nav-list > li{border-bottom:1px solid var(--line);}
+  .nav-item{width:100%;display:flex;align-items:center;justify-content:space-between;
+    background:none;border:none;color:#fff;text-decoration:none;
+    font-size:19px;font-weight:500;padding:18px 24px;cursor:pointer;font-family:inherit;}
+  .nav-item:hover, .nav-item:focus-visible{background:rgba(255,255,255,.06);}
+  .nav-item .chev{color:#a9b4c4;font-size:18px;}
+  .sub-list .nav-item{font-size:16px;font-weight:400;padding:14px 24px 14px 34px;}
+
+  @media (min-width:640px){
+    .panels{max-width:440px;}
+    .overlay{background:linear-gradient(90deg, var(--navy) 0 440px, rgba(0,0,0,.45) 440px);}
+  }
+
+  main{max-width:1180px;margin:0 auto;padding:60px 20px;}
+  main h1{font-size:26px;margin-bottom:8px;}
+  main p{color:#444;max-width:60ch;line-height:1.6;}
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="container">
+      <span><i class="bi bi-geo-alt"></i>Sukkur, Sindh, Pakistan</span>
+      <span><i class="bi bi-building"></i>Government Islamia Science College Sukkur</span>
+    </div>
+  </div>
+
+  <nav class="navbar-custom">
+    <div class="container">
+      <a class="brand-wrap" href="index.html">
+        <img src="assets/images/logo.png" alt="logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2242%22 height=%2242%22 viewBox=%220 0 42 42%22%3E%3Crect width=%2242%22 height=%2242%22 fill=%22%230d2b4e%22/%3E%3Ctext x=%228%22 y=%2230%22 font-size=%2222%22 fill=%22white%22 font-family=%22sans-serif%22%3EG%3C/text%3E%3C/svg%3E'">
+        <span class="brand-text">
+          <strong>GOVT ISLAMIA SCIENCE COLLEGE SUKKUR</strong>
+          <small>Where Excellence Meets Opportunity</small>
+        </span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <i class="bi bi-list"></i> Menu
+      </button>
+
+      <!-- Original menu markup, kept as the single source of truth.
+           JS reads this list to build the drill-down panel, then hides it via CSS. -->
+      <ul class="nav-hover">
+        <li>
+          <a href="#">College</a>
+          <div class="mega-drop">
+            <div class="drop-grid">
+              <div><a href="about.html" class="drop-item">About Us</a></div>
+              <div><a href="Authorities.html" class="drop-item">Our Authorities</a></div>
+              <div><a href="contact.html" class="drop-item">Contact Us</a></div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#">Programs</a>
+          <div class="mega-drop">
+            <div class="drop-grid">
+              <div><a href="HSC.html" class="drop-item">HSC</a></div>
+              <div><a href="ADS.html" class="drop-item">ADS</a></div>
+              <div><a href="BSCS.html" class="drop-item">BS Computer Science</a></div>
+              <div><a href="BSZoology.html" class="drop-item">BS Zoology</a></div>
+            </div>
+          </div>
+        </li>
+        <li><a href="Admission.html">Admission</a></li>
+        <li>
+          <a href="#">Faculty</a>
+          <div class="mega-drop">
+            <div class="drop-grid">
+              <div><a href="Physics.html" class="drop-item">Physics</a></div>
+              <div><a href="Chemistry.html" class="drop-item">Chemistry</a></div>
+              <div><a href="Botany.html" class="drop-item">Botany</a></div>
+              <div><a href="Zoology.html" class="drop-item">Zoology</a></div>
+              <div><a href="CS.html" class="drop-item">Computer Science</a></div>
+              <div><a href="Mathematics.html" class="drop-item">Mathematics</a></div>
+              <div><a href="English.html" class="drop-item">English</a></div>
+              <div><a href="Urdu.html" class="drop-item">Urdu</a></div>
+              <div><a href="Sindhi.html" class="drop-item">Sindhi</a></div>
+              <div><a href="IslamicStudies.html" class="drop-item">Islamic Studies</a></div>
+              <div><a href="PakistanStudies.html" class="drop-item">Pakistan Studies</a></div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#">Updates &amp; Media</a>
+          <div class="mega-drop">
+            <div class="drop-grid">
+              <div><a href="news.html" class="drop-item">News</a></div>
+              <div><a href="notices.html" class="drop-item">Notifications</a></div>
+              <div><a href="gallery.html" class="drop-item">Gallery</a></div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#">Resources</a>
+          <div class="mega-drop">
+            <div class="drop-grid">
+              <div><a href="resources.html#group-library" class="drop-item">Library</a></div>
+              <div><a href="resources.html#group-sports" class="drop-item">Sports</a></div>
+              <div><a href="resources.html#group-labs" class="drop-item">Labs</a></div>
+              <div><a href="resources.html#non-teaching-staff" class="drop-item">Non-Teaching</a></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true">
+    <div class="overlay-head">
+      <strong>GOVT ISLAMIA SCIENCE COLLEGE SUKKUR</strong>
+      <button class="close-btn" id="closeMenu" aria-label="Close menu">&times;</button>
+    </div>
+    <div class="panels" id="panels"></div>
+  </div>
+
+  <main>
+    <h1>Page content goes here</h1>
+    <p>Click "Menu" to see the drill-down panel built from your real College / Programs / Faculty / Updates &amp; Media / Resources structure.</p>
+  </main>
+
+<script>
+// Parse the existing .nav-hover markup into { label, href, children[] } so
+// the menu content still lives in one place — the original <ul>.
+function parseMenu(ul){
+  return Array.from(ul.children).map(li => {
+    const topLink = li.querySelector(':scope > a');
+    const dropItems = li.querySelectorAll('.mega-drop .drop-item');
+    if (dropItems.length){
+      return {
+        label: topLink.textContent.trim(),
+        children: Array.from(dropItems).map(a => ({
+          label: a.textContent.trim(),
+          href: a.getAttribute('href')
+        }))
+      };
+    }
+    return { label: topLink.textContent.trim(), href: topLink.getAttribute('href') };
+  });
+}
+
+const menuData = parseMenu(document.querySelector('.nav-hover'));
+const panelsEl = document.getElementById('panels');
+const overlay = document.getElementById('overlay');
+
+function buildList(items, panelId, title){
+  const panel = document.createElement('div');
+  panel.className = 'panel';
+  panel.id = panelId;
+
+  const back = document.createElement('button');
+  back.className = 'goback' + (panelId === 'panel-root' ? '' : ' show');
+  back.textContent = title || 'Back';
+  back.addEventListener('click', () => showPanel('panel-root'));
+  panel.appendChild(back);
+
+  const ul = document.createElement('ul');
+  ul.className = 'nav-list';
+  items.forEach((item, i) => {
+    const li = document.createElement('li');
+    if (item.children){
+      const childId = `${panelId}-child-${i}`;
+      const btn = document.createElement('button');
+      btn.className = 'nav-item';
+      btn.innerHTML = `<span>${item.label}</span><span class="chev">›</span>`;
+      btn.addEventListener('click', () => showPanel(childId));
+      li.appendChild(btn);
+      panelsEl.appendChild(buildList(item.children, childId, item.label));
+    } else {
+      const a = document.createElement('a');
+      a.className = 'nav-item';
+      a.href = item.href || '#';
+      a.innerHTML = `<span>${item.label}</span>`;
+      li.appendChild(a);
+    }
+    ul.appendChild(li);
+  });
+  panel.appendChild(ul);
+  return panel;
+}
+
+panelsEl.appendChild(buildList(menuData, 'panel-root'));
+
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === id));
+}
+showPanel('panel-root');
+
+document.getElementById('navToggle').addEventListener('click', () => {
+  overlay.classList.add('open');
+  showPanel('panel-root');
+});
+document.getElementById('closeMenu').addEventListener('click', () => {
+  overlay.classList.remove('open');
+});
+</script>
+</body>
+</html>
